@@ -517,36 +517,6 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
         width: 92px;
     }
 
-    .navbar__menu {
-        position: absolute;
-
-        top: 66px;
-        left: 0;
-
-        width: 100%;
-
-        height: auto;
-
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-
-        gap: 0;
-
-        padding: 12px 22px 20px;
-
-        background: #ffffff;
-
-        border-top: 1px solid rgba(92, 26, 46, 0.06);
-        border-bottom: 1px solid rgba(92, 26, 46, 0.08);
-
-        box-shadow: 0 15px 35px rgba(40, 20, 25, 0.08);
-    }
-
-    .navbar__menu.is-open {
-        display: flex;
-    }
-
     .navbar__menu > a,
     .navbar__dropdown-trigger {
         width: 100%;
@@ -568,28 +538,6 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
         height: auto;
 
         display: block;
-    }
-
-    .navbar__dropdown-panel {
-        position: static;
-
-        transform: none;
-
-        display: none;
-
-        min-width: 0;
-
-        padding: 4px 0 8px;
-
-        border: none;
-        box-shadow: none;
-
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .navbar__dropdown:hover .navbar__dropdown-panel {
-        transform: none;
     }
 
     .navbar__dropdown-panel a {
@@ -2390,25 +2338,6 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 }
 
 @media (max-width: 768px) {
-    .navbar__menu {
-        position: fixed;
-        top: 0; right: -100%;
-        width: 80%;
-        max-width: 320px;
-        height: 100vh;
-        background: #fff;
-        flex-direction: column;
-        justify-content: center;
-        padding: var(--space-5);
-        gap: 1.5rem;
-        transition: right var(--transition);
-        box-shadow: -4px 0 30px rgba(0,0,0,0.1);
-        z-index: 999;
-    }
-    .navbar__menu.open { right: 0; }
-    .navbar__burger { display: flex; z-index: 1001; }
-    .navbar__menu a { font-size: 0.9rem; }
-
     .collection-grid { grid-template-columns: 1fr; }
     .product-grid { grid-template-columns: repeat(2, 1fr); }
     .pieces-row { grid-template-columns: 1fr; }
@@ -3196,7 +3125,7 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
     }
 }
 /* =====================================================
-   FLEURA — MOBILE MENU
+   FLEURA — MOBILE MENU (VERSION UNIQUE ET CORRIGÉE)
    ===================================================== */
 
 
@@ -3345,14 +3274,15 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 
     .navbar__menu {
 
-        position: fixed;
+        position: fixed !important;
 
-        top: 0;
-        right: 0;
+        top: 0 !important;
+        right: 0 !important;
+        left: auto !important;
 
-        width: min(88vw, 390px);
+        width: min(88vw, 390px) !important;
 
-        height: 100dvh;
+        height: 100dvh !important;
 
         background: #fff;
 
@@ -3365,9 +3295,9 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
         padding:
             100px
             30px
-            40px;
+            40px !important;
 
-        display: flex;
+        display: flex !important;
 
         flex-direction: column;
 
@@ -3376,6 +3306,9 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
         gap: 0;
 
         overflow-y: auto;
+
+        border-top: none !important;
+        border-bottom: none !important;
 
         box-shadow:
             -15px 0 45px rgba(0, 0, 0, 0.10);
@@ -3402,15 +3335,15 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 
     .navbar__menu.open {
 
-        transform: translateX(0);
+        transform: translateX(0) !important;
 
-        visibility: visible;
+        visibility: visible !important;
 
         /*
          * IMPORTANT :
          * On réactive les clics quand le menu est ouvert.
          */
-        pointer-events: auto;
+        pointer-events: auto !important;
 
         transition:
             transform 0.38s cubic-bezier(.22, 1, .36, 1),
@@ -3545,6 +3478,8 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 
     .navbar__dropdown-panel {
 
+        position: static !important;
+
         display: block !important;
 
         max-height: 0;
@@ -3552,6 +3487,15 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
         overflow: hidden;
 
         opacity: 0;
+
+        min-width: 0 !important;
+
+        border: none !important;
+        box-shadow: none !important;
+
+        visibility: visible !important;
+
+        transform: none !important;
 
         transition:
             max-height 0.35s ease,
@@ -3745,12 +3689,12 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 
     .navbar__menu {
 
-        width: 88vw;
+        width: 88vw !important;
 
         padding:
             90px
             22px
-            30px;
+            30px !important;
     }
 
 

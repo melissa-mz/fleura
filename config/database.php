@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Détecter l'environnement
-$is_local = (strpos($_SERVER['SERVER_NAME'] ?? '', 'localhost') !== false || 
+$is_local = (strpos($_SERVER['SERVER_NAME'] ?? '', 'localhost') !== false ||  
              strpos($_SERVER['SERVER_NAME'] ?? '', '127.0.0.1') !== false);
 
 if ($is_local) {

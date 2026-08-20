@@ -3237,37 +3237,21 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
     /* =================================================
        BURGER → X
        ================================================= */
+.navbar__burger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
 
-    .navbar__burger.active span {
+.navbar__burger.active span:nth-child(2) {
+    opacity: 0;
+}
 
-        background: #5C1A2E;
-    }
+.navbar__burger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
 
-
-    .navbar__burger.active span:nth-child(1) {
-
-        transform:
-            translateY(7px)
-            rotate(45deg);
-    }
-
-
-    .navbar__burger.active span:nth-child(2) {
-
-        opacity: 0;
-
-        transform: scaleX(0);
-    }
-
-
-    .navbar__burger.active span:nth-child(3) {
-
-        transform:
-            translateY(-7px)
-            rotate(-45deg);
-    }
-
-
+.navbar__burger.active {
+    z-index: 1400 !important;
+}
     /* =================================================
        MENU MOBILE
        ================================================= */
@@ -3475,33 +3459,30 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
     /* =================================================
        SOUS-MENU ARTICLES
        ================================================= */
+.navbar__dropdown-panel {
+    position: static !important;
+    display: block !important;
 
-    .navbar__dropdown-panel {
+    max-height: 0;
+    overflow: hidden;
 
-        position: static !important;
+    opacity: 0;
 
-        display: block !important;
+    padding: 0 12px;
 
-        max-height: 0;
+    min-width: 0 !important;
 
-        overflow: hidden;
+    border: none !important;
+    box-shadow: none !important;
 
-        opacity: 0;
+    visibility: visible !important;
+    transform: none !important;
 
-        min-width: 0 !important;
-
-        border: none !important;
-        box-shadow: none !important;
-
-        visibility: visible !important;
-
-        transform: none !important;
-
-        transition:
-            max-height 0.35s ease,
-            opacity 0.25s ease;
-    }
-
+    transition:
+        max-height 0.4s cubic-bezier(.22, 1, .36, 1),
+        opacity 0.25s ease,
+        padding 0.3s ease;
+}
 
     /* =================================================
        SOUS-MENU OUVERT

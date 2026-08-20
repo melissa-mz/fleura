@@ -52,15 +52,15 @@ if ($is_ajax) {
         <?php else: ?>
             <?php foreach ($orders as $order): ?>
                 <tr>
-                    <td data-label="Commande"><?= e($order['order_number']) ?></td>
-                    <td data-label="Cliente"><?= e($order['first_name'] . ' ' . $order['last_name']) ?></td>
-                    <td data-label="Téléphone"><?= e($order['phone']) ?></td>
-                    <td data-label="Date"><?= date('d/m/Y', strtotime($order['created_at'])) ?></td>
-                    <td data-label="Montant"><?= format_price($order['total']) ?></td>
-                    <td data-label="Livraison"><?= $order['delivery_type'] === 'domicile' ? 'Domicile' : 'Bureau' ?></td>
-                    <td data-label="Paiement">Espèces</td>
-                    <td data-label="Statut"><span class="status-badge status-badge--<?= e($order['status']) ?>"><?= get_status_label($order['status']) ?></span></td>
-                    <td data-label="Détails">
+                    <td><?= e($order['order_number']) ?></td>
+                    <td><?= e($order['first_name'] . ' ' . $order['last_name']) ?></td>
+                    <td><?= e($order['phone']) ?></td>
+                    <td><?= date('d/m/Y', strtotime($order['created_at'])) ?></td>
+                    <td><?= format_price($order['total']) ?></td>
+                    <td><?= $order['delivery_type'] === 'domicile' ? 'Domicile' : 'Bureau' ?></td>
+                    <td>Espèces</td>
+                    <td><span class="status-badge status-badge--<?= e($order['status']) ?>"><?= get_status_label($order['status']) ?></span></td>
+                    <td>
                         <a href="<?= SITE_URL ?>/admin/order-details.php?id=<?= (int)$order['id'] ?>" class="link-detail">
                             Voir
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -122,15 +122,15 @@ function renderOrdersTable($orders) {
     <?php else: ?>
         <?php foreach ($orders as $order): ?>
             <tr>
-                <td data-label="Commande"><?= e($order['order_number']) ?></td>
-                <td data-label="Cliente"><?= e($order['first_name'] . ' ' . $order['last_name']) ?></td>
-                <td data-label="Téléphone"><?= e($order['phone']) ?></td>
-                <td data-label="Date"><?= date('d/m/Y', strtotime($order['created_at'])) ?></td>
-                <td data-label="Montant"><?= format_price($order['total']) ?></td>
-                <td data-label="Livraison"><?= $order['delivery_type'] === 'domicile' ? 'Domicile' : 'Bureau' ?></td>
-                <td data-label="Paiement">Espèces</td>
-                <td data-label="Statut"><span class="status-badge status-badge--<?= e($order['status']) ?>"><?= get_status_label($order['status']) ?></span></td>
-                <td data-label="Détails">
+                <td><?= e($order['order_number']) ?></td>
+                <td><?= e($order['first_name'] . ' ' . $order['last_name']) ?></td>
+                <td><?= e($order['phone']) ?></td>
+                <td><?= date('d/m/Y', strtotime($order['created_at'])) ?></td>
+                <td><?= format_price($order['total']) ?></td>
+                <td><?= $order['delivery_type'] === 'domicile' ? 'Domicile' : 'Bureau' ?></td>
+                <td>Espèces</td>
+                <td><span class="status-badge status-badge--<?= e($order['status']) ?>"><?= get_status_label($order['status']) ?></span></td>
+                <td>
                     <a href="<?= SITE_URL ?>/admin/order-details.php?id=<?= (int)$order['id'] ?>" class="link-detail">
                         Voir
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -180,6 +180,7 @@ function renderOrdersTable($orders) {
     background: #f8fafc;
     padding: 0.3rem 1rem;
     border-radius: 30px;
+    white-space: nowrap;
 }
 
 /* --- Filtres en carte (sans bouton Filtrer) --- */
@@ -228,13 +229,14 @@ function renderOrdersTable($orders) {
     font-weight: 500;
     text-decoration: none;
     transition: all 0.2s;
+    white-space: nowrap;
 }
 .orders-filters .btn-reset:hover {
     border-color: #5C1A2E;
     color: #5C1A2E;
 }
 
-/* --- Tableau (desktop) --- */
+/* --- Tableau (reste un VRAI tableau, scroll horizontal sur mobile) --- */
 .orders-table-wrap {
     background: #fff;
     border-radius: 12px;
@@ -248,6 +250,10 @@ function renderOrdersTable($orders) {
     border-collapse: collapse;
     font-size: 0.8rem;
 }
+.orders-table th,
+.orders-table td {
+    white-space: nowrap;
+}
 .orders-table th {
     background: #f8fafc;
     padding: 0.7rem 1rem;
@@ -257,7 +263,6 @@ function renderOrdersTable($orders) {
     letter-spacing: 0.08em;
     color: #9a9186;
     border-bottom: 1px solid rgba(92, 26, 46, 0.06);
-    white-space: nowrap;
 }
 .orders-table td {
     padding: 0.7rem 1rem;
@@ -281,6 +286,7 @@ function renderOrdersTable($orders) {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    white-space: nowrap;
 }
 .status-badge--en_attente {
     background: #f1ede8;
@@ -316,6 +322,7 @@ function renderOrdersTable($orders) {
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    white-space: nowrap;
 }
 .orders-table .link-detail:hover {
     color: #7a2c42;
@@ -324,25 +331,24 @@ function renderOrdersTable($orders) {
     width: 14px;
     height: 14px;
     transition: transform 0.2s;
+    flex-shrink: 0;
 }
 .orders-table .link-detail:hover svg {
     transform: translateX(3px);
 }
 
 /* ============================================================
-   RESPONSIVE MOBILE — TRANSFORMATION EN CARTES
+   RESPONSIVE MOBILE — reste un tableau, juste compact + scroll
    ============================================================ */
 @media (max-width: 768px) {
     .orders-container {
         padding: 0.8rem !important;
-        box-sizing: border-box !important;
     }
     .orders-header h1 {
         font-size: 1.3rem !important;
     }
     .orders-filters-card {
         padding: 0.8rem 1rem !important;
-        margin-bottom: 1.2rem !important;
     }
     .orders-filters {
         flex-direction: column !important;
@@ -359,159 +365,51 @@ function renderOrdersTable($orders) {
         text-align: center !important;
     }
 
-    /* --- Le wrapper ne doit plus cacher/scroller, les cartes gèrent tout --- */
-    .orders-table-wrap {
-        overflow: visible !important;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-    }
-
+    /* Le tableau garde ses colonnes, on réduit juste pour que ça scroll proprement */
     .orders-table {
-        display: block !important;
-        width: 100% !important;
-        min-width: 0 !important;
-        border-collapse: separate !important;
-        border-spacing: 0 !important;
-        font-size: 0.78rem !important;
+        font-size: 0.72rem !important;
     }
-
-    .orders-table thead {
-        display: none !important;
+    .orders-table th,
+    .orders-table td {
+        padding: 0.5rem 0.7rem !important;
     }
-    .orders-table tbody {
-        display: block !important;
-        width: 100% !important;
+    .orders-table th {
+        font-size: 0.56rem !important;
     }
-
-    .orders-table tbody tr {
-        display: block !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        background: #fff !important;
-        border: 1px solid #E8E0D8 !important;
-        border-radius: 14px !important;
-        padding: 14px !important;
-        margin: 0 0 14px 0 !important;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
-    }
-    .orders-table tbody tr:hover td {
-        background: transparent !important;
-    }
-
-    .orders-table tbody td {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        width: 100% !important;
-        min-width: 0 !important;
-        box-sizing: border-box !important;
-        padding: 7px 0 !important;
-        border: none !important;
-        border-bottom: 1px solid #F1ECE8 !important;
-        vertical-align: middle !important;
-        color: #1C1F1F !important;
-        gap: 12px !important;
-        text-align: right !important;
-    }
-    .orders-table tbody td:last-child {
-        border-bottom: none !important;
-    }
-
-    /* Étiquettes (via data-label, plus fiable que nth-child) */
-    .orders-table tbody td::before {
-        content: attr(data-label);
-        flex-shrink: 0 !important;
-        font-size: 0.62rem !important;
-        font-weight: 600 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.06em !important;
-        color: #9A9186 !important;
-        min-width: 80px !important;
-        text-align: left !important;
-    }
-
-    .orders-table tbody td[data-label="Commande"] {
-        padding-top: 0 !important;
-        font-weight: 600 !important;
-        color: #5C1A2E !important;
-    }
-    .orders-table tbody td[data-label="Montant"] {
-        font-weight: 600 !important;
-    }
-
-    /* Statut */
     .orders-table .status-badge {
-        font-size: 0.58rem !important;
-        padding: 4px 10px !important;
-        white-space: nowrap !important;
-        display: inline-block !important;
-    }
-
-    /* Lien Détails */
-    .orders-table tbody td[data-label="Détails"] {
-        margin-top: 4px !important;
-        padding-top: 10px !important;
-        justify-content: space-between !important;
-        border-bottom: none !important;
+        font-size: 0.55rem !important;
+        padding: 3px 9px !important;
     }
     .orders-table .link-detail {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 5px !important;
-        padding: 6px 14px !important;
-        background: #F5F2EF !important;
-        border-radius: 20px !important;
-        font-size: 0.7rem !important;
-        color: #5C1A2E !important;
-        white-space: nowrap !important;
-        text-decoration: none !important;
-    }
-    .orders-table .link-detail svg {
-        width: 13px !important;
-        height: 13px !important;
+        font-size: 0.68rem !important;
     }
 
-    /* Message vide */
-    .orders-table tbody td[colspan] {
-        display: block !important;
-        width: 100% !important;
-        text-align: center !important;
-        padding: 2rem 1rem !important;
-        border: none !important;
+    /* Colonne N° commande fixée à gauche pour garder le repère pendant le scroll */
+    .orders-table th:first-child,
+    .orders-table td:first-child {
+        position: sticky !important;
+        left: 0 !important;
+        background: #fff !important;
+        z-index: 2 !important;
+        box-shadow: 2px 0 4px rgba(0,0,0,0.04) !important;
     }
-    .orders-table tbody td[colspan]::before {
-        display: none !important;
+    .orders-table thead th:first-child {
+        background: #f8fafc !important;
+        z-index: 3 !important;
     }
 }
 
 @media (max-width: 480px) {
     .orders-container {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
     }
-    .orders-table tbody tr {
-        padding: 12px !important;
-        border-radius: 12px !important;
+    .orders-table {
+        font-size: 0.68rem !important;
     }
-    .orders-table tbody td {
-        font-size: 0.72rem !important;
-        padding: 6px 0 !important;
-        gap: 8px !important;
-    }
-    .orders-table tbody td::before {
-        font-size: 0.57rem !important;
-        min-width: 70px !important;
-    }
-    .orders-table .status-badge {
-        font-size: 0.52rem !important;
-        padding: 3px 8px !important;
-    }
-    .orders-table .link-detail {
-        font-size: 0.65rem !important;
-        padding: 5px 11px !important;
+    .orders-table th,
+    .orders-table td {
+        padding: 0.4rem 0.55rem !important;
     }
 }
 </style>

@@ -3338,14 +3338,12 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
         flex: 0 0 calc(50% - 10px);
         min-width: 140px;
     }
-}
-/* =====================================================
-   FLEURA — MOBILE MENU (VERSION UNIQUE ET CORRIGÉE)
+}/* =====================================================
+   FLEURA — MOBILE MENU FINAL
    ===================================================== */
 
-
 /* =====================================================
-   NAVBAR — PRIORITÉ AU-DESSUS DU VOILE
+   NAVBAR
    ===================================================== */
 
 .navbar {
@@ -3355,7 +3353,7 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 
 
 /* =====================================================
-   BURGER — CACHÉ SUR DESKTOP
+   BURGER DESKTOP
    ===================================================== */
 
 .navbar__burger {
@@ -3369,20 +3367,19 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 
 @media (max-width: 900px) {
 
-
-    /* =================================================
+    /* -------------------------------------------------
        BURGER
-       ================================================= */
+       ------------------------------------------------- */
 
     .navbar__burger {
 
         display: flex !important;
 
-        width: 40px;
-        height: 40px;
+        width: 38px !important;
+        height: 38px !important;
 
-        padding: 0;
-        margin: 0;
+        padding: 0 !important;
+        margin: 0 !important;
 
         background: transparent !important;
         border: none !important;
@@ -3397,134 +3394,150 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 
         position: relative;
 
-        /*
-         * IMPORTANT :
-         * Le burger doit être au-dessus de tout.
-         */
-        z-index: 1302;
+        z-index: 1502;
 
         outline: none;
 
         -webkit-tap-highlight-color: transparent;
-
-        pointer-events: auto;
     }
 
-
-    /* =================================================
-       LES 3 LIGNES
-       ================================================= */
 
     .navbar__burger span {
 
         display: block !important;
 
-        width: 22px;
-        height: 2px;
+        width: 21px !important;
+        height: 2px !important;
 
-        background: #333;
+        margin: 0 !important;
+
+        background: #333 !important;
 
         border-radius: 50px;
 
-        margin: 0;
-
         transform-origin: center;
 
-        transition:
-            transform 0.25s cubic-bezier(.4, 0, .2, 1),
-            opacity 0.18s ease,
-            background-color 0.2s ease;
-
         pointer-events: none;
+
+        transition:
+            transform .28s cubic-bezier(.4,0,.2,1),
+            opacity .18s ease,
+            background-color .2s ease;
+    }
+
+
+    .navbar__burger:hover span,
+    .navbar__burger.active span {
+
+        background: #5C1A2E !important;
+    }
+
+
+    /* -------------------------------------------------
+       BURGER → CROIX
+       ------------------------------------------------- */
+
+    .navbar__burger.active span:nth-child(1) {
+
+        transform:
+            translateY(7px)
+            rotate(45deg);
+    }
+
+
+    .navbar__burger.active span:nth-child(2) {
+
+        opacity: 0;
+
+        transform: scaleX(0);
+    }
+
+
+    .navbar__burger.active span:nth-child(3) {
+
+        transform:
+            translateY(-7px)
+            rotate(-45deg);
     }
 
 
     /* =================================================
-       HOVER BURGER
-       ================================================= */
-
-    .navbar__burger:hover span {
-
-        background: #5C1A2E;
-    }
-
-
-    /* =================================================
-       BURGER → X
-       ================================================= */
-.navbar__burger.active span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-}
-
-.navbar__burger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.navbar__burger.active span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-}
-
-.navbar__burger.active {
-    z-index: 1400 !important;
-}
-    /* =================================================
-       MENU MOBILE
+       FENÊTRE MENU MOBILE
        ================================================= */
 
     .navbar__menu {
 
         position: fixed !important;
 
-        top: 0 !important;
-        right: 0 !important;
+        /* IMPORTANT : plus de top:0 */
+        top: 70px !important;
+
+        right: 14px !important;
+
         left: auto !important;
 
-        width: min(88vw, 390px) !important;
+        width:
+            min(
+                360px,
+                calc(100vw - 28px)
+            ) !important;
 
-        height: 100dvh !important;
+        /* IMPORTANT : plus de 100dvh */
+        height: auto !important;
 
-        background: #fff;
+        min-height: 0 !important;
 
-        /*
-         * IMPORTANT :
-         * Le menu est au-dessus du voile.
-         */
-        z-index: 1301;
+        max-height:
+            calc(100dvh - 84px) !important;
 
+        /* petit espace seulement */
         padding:
-            100px
-            30px
-            40px !important;
+            8px
+            15px
+            12px !important;
+
+        margin: 0 !important;
 
         display: flex !important;
 
-        flex-direction: column;
+        flex-direction: column !important;
 
-        align-items: stretch;
+        align-items: stretch !important;
 
-        gap: 0;
+        gap: 0 !important;
 
-        overflow-y: auto;
+        overflow-x: hidden !important;
 
-        border-top: none !important;
-        border-bottom: none !important;
+        overflow-y: auto !important;
+
+        background: #fff !important;
+
+        border:
+            1px solid rgba(92,26,46,.10) !important;
+
+        border-radius: 16px !important;
 
         box-shadow:
-            -15px 0 45px rgba(0, 0, 0, 0.10);
+            0 18px 55px rgba(30,15,20,.16) !important;
 
-        transform: translateX(105%);
+        z-index: 1501 !important;
+
+        opacity: 0;
 
         visibility: hidden;
 
-        /*
-         * IMPORTANT :
-         * Le menu reste cliquable.
-         */
         pointer-events: none;
 
+        transform:
+            translateY(-10px)
+            scale(.97);
+
+        transform-origin: top right;
+
         transition:
-            transform 0.38s cubic-bezier(.22, 1, .36, 1),
-            visibility 0s linear 0.38s;
+            opacity .20s ease,
+            transform .28s cubic-bezier(.22,1,.36,1),
+            visibility 0s linear .28s;
     }
 
 
@@ -3534,92 +3547,92 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 
     .navbar__menu.open {
 
-        transform: translateX(0) !important;
+        opacity: 1 !important;
 
         visibility: visible !important;
 
-        /*
-         * IMPORTANT :
-         * On réactive les clics quand le menu est ouvert.
-         */
         pointer-events: auto !important;
 
+        transform:
+            translateY(0)
+            scale(1);
+
         transition:
-            transform 0.38s cubic-bezier(.22, 1, .36, 1),
+            opacity .20s ease,
+            transform .28s cubic-bezier(.22,1,.36,1),
             visibility 0s;
     }
 
 
     /* =================================================
-       LIENS DU MENU
+       LIENS
        ================================================= */
 
     .navbar__menu > a,
     .navbar__dropdown-trigger {
 
-        width: 100%;
+        width: 100% !important;
 
-        min-height: 54px;
+        min-height: 44px !important;
 
-        display: flex;
+        height: auto !important;
 
-        align-items: center;
+        display: flex !important;
 
-        justify-content: space-between;
+        align-items: center !important;
 
-        padding: 0;
+        justify-content: space-between !important;
 
-        background: transparent;
+        padding: 0 3px !important;
 
-        border: none;
+        margin: 0 !important;
 
-        border-bottom: 1px solid #eeeeee;
+        background: transparent !important;
 
-        color: #222;
+        border: none !important;
 
-        text-decoration: none;
+        border-bottom:
+            1px solid #eeeeee !important;
 
-        font-family: 'Inter', sans-serif;
+        color: #222 !important;
 
-        font-size: 15px;
+        text-decoration: none !important;
 
-        font-weight: 500;
+        font-family:
+            var(--font-sans) !important;
 
-        letter-spacing: 0.02em;
+        font-size: 14px !important;
+
+        font-weight: 500 !important;
+
+        letter-spacing: .02em;
 
         cursor: pointer;
 
         transition:
-            color 0.2s ease,
-            padding-left 0.2s ease;
-
-        /*
-         * S'assurer que les liens sont cliquables.
-         */
-        pointer-events: auto;
+            color .2s ease,
+            padding-left .2s ease;
     }
 
 
-    /* =================================================
-       HOVER LIENS
-       ================================================= */
+    .navbar__menu > a::after {
+
+        display: none !important;
+    }
+
 
     .navbar__menu > a:hover,
     .navbar__dropdown-trigger:hover {
 
-        color: #5C1A2E;
+        color: #5C1A2E !important;
 
-        padding-left: 5px;
+        padding-left: 7px !important;
     }
 
 
-    /* =================================================
-       LIEN ACTIF
-       ================================================= */
-
     .navbar__menu > a.active {
 
-        color: #5C1A2E;
+        color: #5C1A2E !important;
     }
 
 
@@ -3629,147 +3642,182 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 
     .navbar__dropdown {
 
-        width: 100%;
+        position: relative !important;
 
-        border-bottom: 1px solid #eeeeee;
+        width: 100% !important;
+
+        height: auto !important;
+
+        display: block !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        border-bottom:
+            1px solid #eeeeee !important;
     }
 
-
-    /* =================================================
-       BOUTON ARTICLES
-       ================================================= */
 
     .navbar__dropdown-trigger {
 
-        border-bottom: none;
-
-        pointer-events: auto;
+        border-bottom: none !important;
     }
 
 
-    /* =================================================
-       FLÈCHE ARTICLES
-       ================================================= */
+    /* flèche */
 
     .navbar__dropdown-trigger svg {
+
+        width: 13px !important;
+
+        height: 13px !important;
 
         flex-shrink: 0;
 
         transition:
-            transform 0.28s ease;
+            transform .25s ease;
     }
 
-
-    /* =================================================
-       FLÈCHE → HAUT
-       ================================================= */
 
     .navbar__dropdown.open
     .navbar__dropdown-trigger svg {
 
-        transform: rotate(180deg);
+        transform:
+            rotate(180deg);
     }
 
 
     /* =================================================
        SOUS-MENU ARTICLES
        ================================================= */
-.navbar__dropdown-panel {
-    position: static !important;
-    display: block !important;
 
-    max-height: 0;
-    overflow: hidden;
+    .navbar__dropdown-panel {
 
-    opacity: 0;
+        position: static !important;
 
-    padding: 0 12px;
+        width: 100% !important;
 
-    min-width: 0 !important;
+        min-width: 0 !important;
 
-    border: none !important;
-    box-shadow: none !important;
+        height: auto !important;
 
-    visibility: visible !important;
-    transform: none !important;
+        max-height: 0 !important;
 
-    transition:
-        max-height 0.4s cubic-bezier(.22, 1, .36, 1),
-        opacity 0.25s ease,
-        padding 0.3s ease;
-}
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        overflow: hidden !important;
+
+        opacity: 0 !important;
+
+        visibility: visible !important;
+
+        transform: none !important;
+
+        background: #faf8f9 !important;
+
+        border: none !important;
+
+        border-radius: 9px !important;
+
+        box-shadow: none !important;
+
+        pointer-events: none !important;
+
+        transition:
+            max-height .32s cubic-bezier(.22,1,.36,1),
+            opacity .20s ease,
+            margin .22s ease;
+    }
+
 
     /* =================================================
-       SOUS-MENU OUVERT
+       ARTICLES OUVERT
        ================================================= */
 
     .navbar__dropdown.open
     .navbar__dropdown-panel {
 
-        max-height: 600px;
+        max-height: 450px !important;
 
-        opacity: 1;
+        margin:
+            5px 0 7px !important;
+
+        opacity: 1 !important;
+
+        pointer-events: auto !important;
     }
 
 
     /* =================================================
-       LIENS SOUS-MENU
+       LIENS ARTICLES
        ================================================= */
 
     .navbar__dropdown-panel a {
 
-        display: flex;
+        display: flex !important;
 
-        align-items: center;
+        align-items: center !important;
 
-        min-height: 44px;
+        width: 100% !important;
 
-        padding-left: 18px;
+        min-height: 38px !important;
 
-        color: #666;
+        padding:
+            0 12px !important;
 
-        text-decoration: none;
+        color: #666 !important;
 
-        font-family: 'Inter', sans-serif;
+        background: transparent !important;
 
-        font-size: 14px;
+        border-top:
+            1px solid rgba(0,0,0,.05) !important;
 
-        border-top: 1px solid #f3f3f3;
+        text-decoration: none !important;
+
+        font-family:
+            var(--font-sans) !important;
+
+        font-size: 13px !important;
+
+        text-transform: none !important;
 
         transition:
-            color 0.2s ease,
-            padding-left 0.2s ease;
-
-        pointer-events: auto;
+            color .2s ease,
+            background .2s ease,
+            padding-left .2s ease;
     }
 
 
-    /* =================================================
-       HOVER SOUS-MENU
-       ================================================= */
+    .navbar__dropdown-panel a:first-child {
+
+        border-top: none !important;
+    }
+
 
     .navbar__dropdown-panel a:hover,
     .navbar__dropdown-panel a.active {
 
-        color: #5C1A2E;
+        color: #5C1A2E !important;
 
-        padding-left: 25px;
+        background:
+            rgba(92,26,46,.035) !important;
+
+        padding-left: 17px !important;
     }
 
 
     /* =================================================
-       BLOQUER LE SCROLL QUAND MENU OUVERT
+       OVERLAY
        ================================================= */
 
     body.menu-open {
 
-        overflow: hidden;
+        overflow: hidden !important;
     }
 
-
-    /* =================================================
-       VOILE DERRIÈRE LE MENU
-       ================================================= */
 
     body.menu-open::before {
 
@@ -3779,90 +3827,50 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
 
         inset: 0;
 
-        background: rgba(0, 0, 0, 0.25);
+        background:
+            rgba(20,12,15,.22);
 
-        /*
-         * Le voile est sous le menu.
-         */
-        z-index: 1250;
+        z-index: 1500;
 
-        /*
-         * TRÈS IMPORTANT :
-         * Le voile ne bloque aucun clic.
-         */
         pointer-events: none;
 
         animation:
-            menuOverlay 0.25s ease forwards;
+            fleuraOverlay .20s ease forwards;
     }
 
 
-    /* =================================================
-       ANIMATION DU VOILE
-       ================================================= */
-
-    @keyframes menuOverlay {
+    @keyframes fleuraOverlay {
 
         from {
-
             opacity: 0;
         }
 
         to {
-
             opacity: 1;
         }
     }
 
 
     /* =================================================
-       ANIMATION DES LIENS
+       ANIMATION MENU
        ================================================= */
 
     .navbar__menu.open > a,
     .navbar__menu.open > .navbar__dropdown {
 
         animation:
-            menuItemIn 0.35s ease both;
+            fleuraMenuItem .25s ease both;
     }
 
 
-    .navbar__menu.open > a:nth-child(1) {
-
-        animation-delay: 0.04s;
-    }
-
-
-    .navbar__menu.open > a:nth-child(2) {
-
-        animation-delay: 0.07s;
-    }
-
-
-    .navbar__menu.open > a:nth-child(3) {
-
-        animation-delay: 0.10s;
-    }
-
-
-    .navbar__menu.open > .navbar__dropdown {
-
-        animation-delay: 0.13s;
-    }
-
-
-    /* =================================================
-       ANIMATION ENTRÉE DES LIENS
-       ================================================= */
-
-    @keyframes menuItemIn {
+    @keyframes fleuraMenuItem {
 
         from {
 
             opacity: 0;
 
             transform:
-                translateX(18px);
+                translateY(-4px);
         }
 
         to {
@@ -3870,36 +3878,96 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
             opacity: 1;
 
             transform:
-                translateX(0);
+                translateY(0);
         }
+    }
+
+
+    .navbar__actions {
+
+        gap: 8px;
     }
 
 }
 
 
 /* =====================================================
-   PETIT MOBILE
+   TRÈS PETIT MOBILE
    ===================================================== */
 
 @media (max-width: 480px) {
 
-    .navbar__menu {
+    .navbar__inner {
 
-        width: 88vw !important;
+        height: 62px !important;
 
         padding:
-            90px
-            22px
-            30px !important;
+            0 16px !important;
+    }
+
+
+    .navbar__logo img {
+
+        width: 84px !important;
+    }
+
+
+    .navbar__icon {
+
+        width: 31px;
+
+        height: 31px;
+    }
+
+
+    .navbar__burger {
+
+        width: 36px !important;
+
+        height: 36px !important;
+    }
+
+
+    .navbar__menu {
+
+        top: 66px !important;
+
+        right: 10px !important;
+
+        width:
+            calc(100vw - 20px) !important;
+
+        max-height:
+            calc(100dvh - 78px) !important;
+
+        padding:
+            7px
+            13px
+            10px !important;
+
+        border-radius:
+            15px !important;
     }
 
 
     .navbar__menu > a,
     .navbar__dropdown-trigger {
 
-        min-height: 52px;
+        min-height:
+            42px !important;
 
-        font-size: 14px;
+        font-size:
+            13.5px !important;
+    }
+
+
+    .navbar__dropdown-panel a {
+
+        min-height:
+            36px !important;
+
+        font-size:
+            12.5px !important;
     }
 
 }

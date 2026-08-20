@@ -520,7 +520,7 @@ if (!empty($edit['id'])) {
                     <?php else: ?>
                         <?php foreach ($products as $p): ?>
                             <tr>
-                                <td>
+                                <td data-label="Image">
                                     <?php if (!empty($p['image'])): ?>
                                         <?php if (filter_var($p['image'], FILTER_VALIDATE_URL)): ?>
                                             <img src="<?= e($p['image']) ?>" class="product-thumb">
@@ -531,7 +531,8 @@ if (!empty($edit['id'])) {
                                         <span class="text-muted">—</span>
                                     <?php endif; ?>
                                 </td>
-                                <td><?= e($p['name']) ?>
+                                <td data-label="Nom">
+                                    <?= e($p['name']) ?>
                                     <?php if ($p['stock'] == 0): ?>
                                         <span class="status-pill status-annulee" style="font-size:0.6rem;">Rupture</span>
                                     <?php endif; ?>
@@ -539,8 +540,8 @@ if (!empty($edit['id'])) {
                                         <span class="status-pill status-confirmee" style="font-size:0.6rem;">Nouveau</span>
                                     <?php endif; ?>
                                 </td>
-                                <td><?= e($p['category_name'] ?? '—') ?></td>
-                                <td>
+                                <td data-label="Catégorie"><?= e($p['category_name'] ?? '—') ?></td>
+                                <td data-label="Prix">
                                     <?php if (!empty($p['promo_price']) && $p['promo_price'] > 0): ?>
                                         <span style="text-decoration:line-through;color:#b0b0b0;margin-right:4px;font-size:0.85rem;"><?= format_price($p['price']) ?></span>
                                         <span style="color:#211C17;font-weight:400;"><?= format_price($p['promo_price']) ?></span>
@@ -548,12 +549,12 @@ if (!empty($edit['id'])) {
                                         <?= format_price($p['price']) ?>
                                     <?php endif; ?>
                                 </td>
-                                <td>
+                                <td data-label="Stock">
                                     <span style="color:<?= $p['stock'] <= 5 && $p['stock'] > 0 ? '#f59e0b' : ($p['stock'] == 0 ? '#ef4444' : '#16a34a') ?>;font-weight:600;">
                                         <?= (int)$p['stock'] ?>
                                     </span>
                                 </td>
-                                <td style="text-align:center;">
+                                <td data-label="Actions">
                                     <div class="actions">
                                         <a href="<?= SITE_URL ?>/admin/products.php?edit=<?= (int)$p['id'] ?>">Modifier</a>
                                         <a href="<?= SITE_URL ?>/admin/products.php?supprimer=<?= (int)$p['id'] ?>" class="delete" onclick="return confirm('Supprimer ce produit ?');">Suppr.</a>

@@ -249,7 +249,7 @@ $image_base = SITE_URL . '/assets/images/products/';
                     </div>
                     <div class="form-field">
                         <label>Commune *</label>
-                        <input type="text" name="commune" value="<?= e($_POST['commune'] ?? '') ?>" placeholder="Ex: El Harrach..." required>
+                        <input type="text" name="commune" value="<?= e($_POST['commune'] ?? '') ?>" placeholder="" required>
                     </div>
                 </div>
 

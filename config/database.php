@@ -15,10 +15,9 @@ $pass = getenv('DB_PASS') ?: '';
 $port = getenv('DB_PORT') ?: '3306';
 
 // --- Constantes ---
-// ⚠️ Pour Render, on met l'URL directement (ou via getenv pour plus de flexibilité)
-define('SITE_URL', getenv('SITE_URL') ?: 'https://fleura.onrender.com');
-// En local, tu peux remplacer par : define('SITE_URL', 'http://localhost/fleura');
-
+// ⚠️ LOCAL : utilise http://localhost/fleura
+// ⚠️ RENDER : utilise la variable d'environnement SITE_URL
+define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/fleura');
 define('CURRENCY', getenv('CURRENCY') ?: 'DA');
 define('DELIVERY_FEE', (float)(getenv('DELIVERY_FEE') ?: 600));
 
@@ -28,14 +27,8 @@ $driver = 'unknown';
 try {
     // --- Connexion en ligne (Supabase PostgreSQL) ---
     if (getenv('DB_HOST')) {
-        // Résoudre l'adresse IPv4 (contourne le problème IPv6)
-        $hostaddr = gethostbyname($host);
-        // Si la résolution échoue, on garde l'hôte original
-        if ($hostaddr === $host) {
-            $hostaddr = $host;
-        }
-        // DSN : hostaddr + sslmode=require
-        $dsn = "pgsql:hostaddr=$hostaddr;port=$port;dbname=$dbname;sslmode=require";
+        // DSN avec le nom d'hôte directement + sslmode=require
+        $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require";
         $driver = 'pgsql';
     } else {
         // --- Local (MySQL) ---

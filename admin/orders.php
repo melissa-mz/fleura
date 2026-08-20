@@ -62,8 +62,8 @@ if ($is_ajax) {
                     <td><span class="status-badge status-badge--<?= e($order['status']) ?>"><?= get_status_label($order['status']) ?></span></td>
                     <td>
                         <a href="<?= SITE_URL ?>/admin/order-details.php?id=<?= (int)$order['id'] ?>" class="link-detail">
-                            Voir
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <span class="link-detail__text">Voir</span>
                         </a>
                     </td>
                 </tr>
@@ -132,8 +132,8 @@ function renderOrdersTable($orders) {
                 <td><span class="status-badge status-badge--<?= e($order['status']) ?>"><?= get_status_label($order['status']) ?></span></td>
                 <td>
                     <a href="<?= SITE_URL ?>/admin/order-details.php?id=<?= (int)$order['id'] ?>" class="link-detail">
-                        Voir
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        <span class="link-detail__text">Voir</span>
                     </a>
                 </td>
             </tr>
@@ -236,7 +236,7 @@ function renderOrdersTable($orders) {
     color: #5C1A2E;
 }
 
-/* --- Tableau (reste un VRAI tableau, scroll horizontal sur mobile) --- */
+/* --- Tableau (desktop) --- */
 .orders-table-wrap {
     background: #fff;
     border-radius: 12px;
@@ -249,10 +249,6 @@ function renderOrdersTable($orders) {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.8rem;
-}
-.orders-table th,
-.orders-table td {
-    white-space: nowrap;
 }
 .orders-table th {
     background: #f8fafc;
@@ -286,7 +282,6 @@ function renderOrdersTable($orders) {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    white-space: nowrap;
 }
 .status-badge--en_attente {
     background: #f1ede8;
@@ -322,7 +317,6 @@ function renderOrdersTable($orders) {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    white-space: nowrap;
 }
 .orders-table .link-detail:hover {
     color: #7a2c42;
@@ -338,78 +332,115 @@ function renderOrdersTable($orders) {
 }
 
 /* ============================================================
-   RESPONSIVE MOBILE — reste un tableau, juste compact + scroll
+   RESPONSIVE MOBILE — TOUTES LES COLONNES VISIBLES, SANS SCROLL
    ============================================================ */
 @media (max-width: 768px) {
     .orders-container {
-        padding: 0.8rem !important;
+        padding: 0.6rem !important;
+    }
+    .orders-header {
+        margin-bottom: 1rem !important;
     }
     .orders-header h1 {
-        font-size: 1.3rem !important;
+        font-size: 1.15rem !important;
+    }
+    .orders-header .count {
+        font-size: 0.65rem !important;
+        padding: 0.25rem 0.7rem !important;
     }
     .orders-filters-card {
-        padding: 0.8rem 1rem !important;
+        padding: 0.7rem 0.8rem !important;
+        margin-bottom: 1rem !important;
     }
     .orders-filters {
         flex-direction: column !important;
         align-items: stretch !important;
+        gap: 0.5rem !important;
     }
     .orders-filters input,
     .orders-filters select {
         min-width: 0 !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        font-size: 0.78rem !important;
     }
     .orders-filters .btn-reset {
         width: 100% !important;
         text-align: center !important;
     }
 
-    /* Le tableau garde ses colonnes, on réduit juste pour que ça scroll proprement */
+    /* Le wrapper ne scrolle plus horizontalement : tout doit tenir */
+    .orders-table-wrap {
+        overflow-x: hidden !important;
+        border-radius: 8px !important;
+    }
+
+    /* Largeurs fixes en % qui totalisent 100% -> jamais de dépassement */
     .orders-table {
-        font-size: 0.72rem !important;
+        table-layout: fixed !important;
+        width: 100% !important;
+        font-size: 0.58rem !important;
     }
     .orders-table th,
     .orders-table td {
-        padding: 0.5rem 0.7rem !important;
+        padding: 0.35rem 0.25rem !important;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+        line-height: 1.25 !important;
+        vertical-align: middle !important;
     }
     .orders-table th {
-        font-size: 0.56rem !important;
-    }
-    .orders-table .status-badge {
-        font-size: 0.55rem !important;
-        padding: 3px 9px !important;
-    }
-    .orders-table .link-detail {
-        font-size: 0.68rem !important;
+        font-size: 0.48rem !important;
+        letter-spacing: 0 !important;
     }
 
-    /* Colonne N° commande fixée à gauche pour garder le repère pendant le scroll */
-    .orders-table th:first-child,
-    .orders-table td:first-child {
-        position: sticky !important;
-        left: 0 !important;
-        background: #fff !important;
-        z-index: 2 !important;
-        box-shadow: 2px 0 4px rgba(0,0,0,0.04) !important;
+    /* Répartition des largeurs (total = 100%) */
+    .orders-table th:nth-child(1), .orders-table td:nth-child(1) { width: 11%; }  /* N° */
+    .orders-table th:nth-child(2), .orders-table td:nth-child(2) { width: 15%; }  /* Cliente */
+    .orders-table th:nth-child(3), .orders-table td:nth-child(3) { width: 13%; }  /* Téléphone */
+    .orders-table th:nth-child(4), .orders-table td:nth-child(4) { width: 10%; }  /* Date */
+    .orders-table th:nth-child(5), .orders-table td:nth-child(5) { width: 11%; }  /* Montant */
+    .orders-table th:nth-child(6), .orders-table td:nth-child(6) { width: 10%; }  /* Livraison */
+    .orders-table th:nth-child(7), .orders-table td:nth-child(7) { width: 9%;  }  /* Paiement */
+    .orders-table th:nth-child(8), .orders-table td:nth-child(8) { width: 13%; }  /* Statut */
+    .orders-table th:nth-child(9), .orders-table td:nth-child(9) { width: 8%;  }  /* Action */
+
+    .orders-table .status-badge {
+        font-size: 0.44rem !important;
+        padding: 2px 5px !important;
+        white-space: normal !important;
+        line-height: 1.2 !important;
     }
-    .orders-table thead th:first-child {
-        background: #f8fafc !important;
-        z-index: 3 !important;
+
+    /* Action : icône seule, texte "Voir" caché pour gagner de la place */
+    .orders-table .link-detail {
+        justify-content: center !important;
+        gap: 0 !important;
+    }
+    .orders-table .link-detail svg {
+        width: 15px !important;
+        height: 15px !important;
+    }
+    .orders-table .link-detail__text {
+        display: none !important;
     }
 }
 
-@media (max-width: 480px) {
-    .orders-container {
-        padding-left: 8px !important;
-        padding-right: 8px !important;
-    }
+@media (max-width: 380px) {
     .orders-table {
-        font-size: 0.68rem !important;
+        font-size: 0.52rem !important;
+    }
+    .orders-table th {
+        font-size: 0.42rem !important;
     }
     .orders-table th,
     .orders-table td {
-        padding: 0.4rem 0.55rem !important;
+        padding: 0.3rem 0.18rem !important;
+    }
+    .orders-table .status-badge {
+        font-size: 0.4rem !important;
+        padding: 2px 4px !important;
     }
 }
 </style>
@@ -440,12 +471,12 @@ function renderOrdersTable($orders) {
         <table class="orders-table">
             <thead>
                 <tr>
-                    <th>N° Commande</th>
+                    <th>N°</th>
                     <th>Cliente</th>
-                    <th>Téléphone</th>
+                    <th>Tél.</th>
                     <th>Date</th>
                     <th>Montant</th>
-                    <th>Livraison</th>
+                    <th>Livr.</th>
                     <th>Paiement</th>
                     <th>Statut</th>
                     <th></th>

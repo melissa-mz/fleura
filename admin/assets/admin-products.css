@@ -1,23 +1,19 @@
 /* ============================================================
-   FLEURA ADMIN — CSS COMPLET
-   Produits + Dashboard + Commandes + Responsive
+   FLEURA ADMIN — CSS COMPLET (corrigé, sans doublons)
+   Produits, Dashboard, Commandes, responsive, hamburger
    ============================================================ */
 
 :root {
     --admin-primary: #5C1A2E;
     --admin-primary-hover: #7A2C42;
     --admin-primary-light: #F3E8EB;
-
     --admin-text: #1C1F1F;
     --admin-text-light: #5C605F;
     --admin-muted: #9A9186;
-
     --admin-border: #E2E8F0;
     --admin-soft-border: #E8E0D8;
-
     --admin-bg: #F8FAFC;
     --admin-white: #FFFFFF;
-
     --admin-radius: 12px;
     --admin-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
@@ -119,7 +115,6 @@
     font-size: 0.8rem;
     font-weight: 500;
 }
-
 .actions .delete:hover {
     color: #E74C3C !important;
     text-decoration: underline !important;
@@ -169,10 +164,7 @@
     border-radius: 8px;
     font-size: 0.9rem;
     background: var(--admin-bg);
-    transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
     box-sizing: border-box;
 }
 
@@ -248,7 +240,6 @@
     color: #fff;
     border-color: var(--admin-primary);
 }
-
 .btn-primary:hover {
     background: var(--admin-primary-hover);
     border-color: var(--admin-primary-hover);
@@ -261,7 +252,6 @@
     color: #4A4A4A;
     border-color: #D1D5DB;
 }
-
 .btn-secondary:hover {
     background: #E5E7EB;
     border-color: #B0B3B8;
@@ -273,7 +263,6 @@
     width: 100%;
     text-align: center;
 }
-
 .btn-block + .btn-block {
     margin-top: 10px;
 }
@@ -323,7 +312,6 @@
     border-width: 3px;
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
 }
-
 .color-swatch-item input[type="checkbox"]:checked + .swatch-circle::after {
     content: "✓";
     font-size: 20px;
@@ -335,12 +323,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
 .color-swatch-item input[type="checkbox"]:checked + .swatch-circle[data-dark="1"]::after {
     color: #fff;
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
 }
-
 .color-swatch-item:hover .swatch-circle {
     transform: scale(1.05);
     border-color: #9CA3AF;
@@ -362,7 +348,6 @@
     gap: 10px;
     flex-wrap: wrap;
 }
-
 .color-other-group input[type="text"] {
     width: 200px;
     padding: 6px 10px;
@@ -371,7 +356,6 @@
     font-size: 0.85rem;
     background: var(--admin-bg);
 }
-
 .color-other-group input[type="text"]:focus {
     outline: none;
     border-color: var(--admin-primary);
@@ -384,7 +368,27 @@
    ============================================================ */
 
 .upload-drop {
-    display: block;
+    position: relative;
+    border: 1.5px dashed #D8CCD1;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    background: var(--admin-bg);
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+.upload-drop:hover {
+    border-color: var(--admin-primary);
+}
+.upload-drop input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.upload-drop__text {
+    font-size: 0.8rem;
+    color: var(--admin-text-light);
 }
 
 .image-previews,
@@ -392,6 +396,52 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+}
+.image-previews .preview-item,
+.product-images-preview .img-item {
+    position: relative;
+    display: inline-block;
+}
+.image-previews .preview-item img,
+.product-images-preview .img-item img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--admin-border);
+}
+.image-previews .preview-item .remove-preview,
+.product-images-preview .img-item .delete-img {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #EF4444;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.image-previews .preview-item .remove-preview:hover,
+.product-images-preview .img-item .delete-img:hover {
+    transform: scale(1.15);
+}
+.image-previews .preview-item .preview-main-badge {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--admin-primary);
+    color: #fff;
+    font-size: 0.55rem;
+    padding: 1px 6px;
+    border-radius: 999px;
+    white-space: nowrap;
 }
 
 
@@ -408,7 +458,6 @@
     border-left: 4px solid #22C55E;
     font-size: 0.9rem;
 }
-
 .error-message {
     padding: 12px 18px;
     border-radius: 8px;
@@ -418,14 +467,13 @@
     border-left: 4px solid #EF4444;
     font-size: 0.9rem;
 }
-
 .error-message p {
     margin: 0;
 }
 
 
 /* ============================================================
-   MENU HAMBURGER ADMIN
+   HAMBURGER ADMIN
    ============================================================ */
 
 .navbar__burger {
@@ -443,11 +491,9 @@
     border-radius: 4px;
     transition: background 0.2s ease;
 }
-
 .navbar__burger:hover {
     background: rgba(0, 0, 0, 0.05);
 }
-
 .navbar__burger span {
     display: block;
     width: 22px;
@@ -457,16 +503,13 @@
     transition: all 0.3s ease;
     transform-origin: center;
 }
-
 .navbar__burger.active span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
-
 .navbar__burger.active span:nth-child(2) {
     opacity: 0;
     transform: scaleX(0);
 }
-
 .navbar__burger.active span:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
 }
@@ -475,6 +518,50 @@
     display: flex;
     align-items: center;
     gap: 2rem;
+}
+
+@media (max-width: 850px) {
+    .navbar__burger {
+        display: flex !important;
+    }
+    .navbar__menu {
+        position: absolute !important;
+        top: 66px !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        background: #fff !important;
+        padding: 16px 22px !important;
+        border-top: 1px solid rgba(92, 26, 46, 0.06);
+        border-bottom: 1px solid rgba(92, 26, 46, 0.08);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        display: none !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0 !important;
+        z-index: 1000;
+    }
+    .navbar__menu.open {
+        display: flex !important;
+    }
+    .navbar__menu a {
+        padding: 12px 4px !important;
+        border-bottom: 1px solid #F0ECE8;
+        font-size: 14px !important;
+        color: #333 !important;
+        text-decoration: none !important;
+        width: 100% !important;
+        text-align: left;
+    }
+    .navbar__menu a:last-child {
+        border-bottom: none;
+    }
+    .navbar__menu a.active {
+        color: var(--admin-primary) !important;
+    }
+    .navbar__menu a.active::after {
+        display: none !important;
+    }
 }
 
 
@@ -518,21 +605,27 @@
 
 
 /* ============================================================
-   TABLEAUX ADMIN GÉNÉRAUX
+   TABLEAUX GENERIQUES (PRODUITS & COMMANDES)
    ============================================================ */
 
-.admin-table-wrap {
+.admin-table-wrap,
+.orders-table-wrap,
+.table-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
 
-.admin-table {
+.admin-table,
+.orders-table,
+.products-list table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.85rem;
 }
 
-.admin-table th {
+.admin-table th,
+.orders-table th,
+.products-list th {
     background: var(--admin-bg);
     padding: 0.6rem 0.8rem;
     text-align: left;
@@ -544,360 +637,19 @@
     white-space: nowrap;
 }
 
-.admin-table td {
+.admin-table td,
+.orders-table td,
+.products-list td {
     padding: 0.6rem 0.8rem;
     border-bottom: 1px solid rgba(92, 26, 46, 0.04);
     vertical-align: middle;
     color: #211C17;
 }
 
-.admin-table tr:last-child td {
+.admin-table tr:last-child td,
+.orders-table tr:last-child td,
+.products-list tr:last-child td {
     border-bottom: none;
-}
-
-
-/* ============================================================
-   COMMANDES — CONTENEUR
-   ============================================================ */
-
-.orders-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1.5rem 1.2rem 3rem;
-}
-
-
-/* ============================================================
-   COMMANDES — HEADER
-   ============================================================ */
-
-.orders-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-}
-
-.orders-header h1 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.6rem;
-    font-weight: 500;
-    color: var(--admin-text);
-    margin: 0;
-}
-
-.orders-header .count {
-    font-size: 0.85rem;
-    color: #9A9186;
-    background: var(--admin-bg);
-    padding: 0.3rem 1rem;
-    border-radius: 30px;
-}
-
-
-/* ============================================================
-   COMMANDES — FILTRES
-   ============================================================ */
-
-.orders-filters-card {
-    background: #fff;
-    padding: 1.2rem 1.5rem;
-    border-radius: 12px;
-    border: 1px solid rgba(92, 26, 46, 0.06);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-    margin-bottom: 2rem;
-}
-
-.orders-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-    align-items: center;
-}
-
-.orders-filters input,
-.orders-filters select {
-    padding: 0.5rem 0.9rem;
-    border: 1px solid var(--admin-border);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    background: var(--admin-bg);
-    transition: all 0.2s;
-    color: var(--admin-text);
-}
-
-.orders-filters input:focus,
-.orders-filters select:focus {
-    outline: none;
-    border-color: var(--admin-primary);
-    box-shadow: 0 0 0 3px rgba(92, 26, 46, 0.06);
-    background: #fff;
-}
-
-.orders-filters input {
-    flex: 1;
-    min-width: 200px;
-}
-
-.orders-filters .btn-reset {
-    background: transparent;
-    color: #9A9186;
-    border: 1px solid var(--admin-border);
-    padding: 0.45rem 1.5rem;
-    border-radius: 30px;
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s;
-}
-
-.orders-filters .btn-reset:hover {
-    border-color: var(--admin-primary);
-    color: var(--admin-primary);
-}
-
-
-/* ============================================================
-   COMMANDES — TABLEAU DESKTOP
-   ============================================================ */
-
-.orders-table-wrap {
-    background: #fff;
-    border-radius: 12px;
-    border: 1px solid rgba(92, 26, 46, 0.06);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-}
-
-.orders-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.8rem;
-}
-
-.orders-table th {
-    background: var(--admin-bg);
-    padding: 0.7rem 1rem;
-    text-align: left;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #9A9186;
-    border-bottom: 1px solid rgba(92, 26, 46, 0.06);
-    white-space: nowrap;
-}
-
-.orders-table td {
-    padding: 0.7rem 1rem;
-    border-bottom: 1px solid rgba(92, 26, 46, 0.04);
-    vertical-align: middle;
-    color: var(--admin-text);
-}
-
-.orders-table tr:last-child td {
-    border-bottom: none;
-}
-
-.orders-table tr:hover td {
-    background: #FCF9F7;
-}
-
-
-/* ============================================================
-   STATUTS COMMANDES
-   ============================================================ */
-
-.orders-table .status-badge {
-    display: inline-block;
-    padding: 0.2rem 0.9rem;
-    border-radius: 30px;
-    font-size: 0.6rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-}
-
-.status-badge--en_attente {
-    background: #F1EDE8;
-    color: #7A7268;
-}
-
-.status-badge--confirmee {
-    background: #E8DDD5;
-    color: var(--admin-primary);
-}
-
-.status-badge--en_preparation {
-    background: #D9C7A3;
-    color: #5C4A30;
-}
-
-.status-badge--expediee {
-    background: var(--admin-primary);
-    color: #fff;
-}
-
-.status-badge--livree {
-    background: #D4D4C8;
-    color: #3D4A3A;
-}
-
-.status-badge--annulee {
-    background: #F0E0DD;
-    color: #8B3A3A;
-}
-
-
-/* ============================================================
-   COMMANDES — LIEN DÉTAIL
-   ============================================================ */
-
-.orders-table .link-detail {
-    font-size: 0.75rem;
-    color: var(--admin-primary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-}
-
-.orders-table .link-detail:hover {
-    color: var(--admin-primary-hover);
-}
-
-.orders-table .link-detail svg {
-    width: 14px;
-    height: 14px;
-    transition: transform 0.2s;
-}
-
-.orders-table .link-detail:hover svg {
-    transform: translateX(3px);
-}
-
-
-/* ============================================================
-   BOUTON VOIR TOUS
-   ============================================================ */
-
-.products-list .btn-secondary {
-    display: inline-block;
-    padding: 0.4rem 1.2rem;
-    font-size: 0.7rem;
-    border-radius: 30px;
-    background: #F1F3F5;
-    color: #4A4A4A;
-    border: 1px solid #D1D5DB;
-    text-decoration: none;
-    transition: all 0.2s;
-}
-
-.products-list .btn-secondary:hover {
-    background: #E5E7EB;
-    border-color: #B0B3B8;
-}
-
-
-/* ============================================================
-   DESKTOP LARGE
-   ============================================================ */
-
-@media (min-width: 1280px) {
-
-    .products-layout {
-        gap: 36px;
-    }
-}
-
-
-/* ============================================================
-   TABLETTE / PETIT DESKTOP
-   ============================================================ */
-
-@media (max-width: 900px) {
-
-    .products-layout {
-        grid-template-columns: 1fr;
-        gap: 22px;
-    }
-
-    .form-panel {
-        padding: 20px;
-    }
-
-    .products-list th,
-    .products-list td {
-        padding: 10px 12px;
-    }
-}
-
-
-/* ============================================================
-   MENU MOBILE
-   ============================================================ */
-
-@media (max-width: 850px) {
-
-    .navbar__burger {
-        display: flex !important;
-    }
-
-    .navbar__menu {
-        position: absolute !important;
-        top: 66px !important;
-        left: 0 !important;
-        right: 0 !important;
-        width: 100% !important;
-
-        background: #fff !important;
-
-        padding: 16px 22px !important;
-
-        border-top: 1px solid rgba(92, 26, 46, 0.06);
-        border-bottom: 1px solid rgba(92, 26, 46, 0.08);
-
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-
-        display: none !important;
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 0 !important;
-
-        z-index: 1000;
-    }
-
-    .navbar__menu.open {
-        display: flex !important;
-    }
-
-    .navbar__menu a {
-        padding: 12px 4px !important;
-        border-bottom: 1px solid #F0ECE8;
-        font-size: 14px !important;
-        color: #333 !important;
-        text-decoration: none !important;
-        width: 100% !important;
-        text-align: left;
-    }
-
-    .navbar__menu a:last-child {
-        border-bottom: none;
-    }
-
-    .navbar__menu a.active {
-        color: var(--admin-primary) !important;
-    }
-
-    .navbar__menu a.active::after {
-        display: none !important;
-    }
 }
 
 
@@ -906,11 +658,9 @@
    ============================================================ */
 
 @media (max-width: 768px) {
-
     .products-list table thead {
         display: none !important;
     }
-
     .products-list table,
     .products-list table tbody,
     .products-list table tr,
@@ -922,16 +672,14 @@
         border: none !important;
         background: transparent !important;
     }
-
     .products-list table tr {
         background: #fff !important;
         border: 1px solid var(--admin-soft-border) !important;
         border-radius: 12px !important;
         padding: 16px !important;
         margin-bottom: 16px !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
     }
-
     .products-list table td {
         display: flex !important;
         flex-wrap: wrap !important;
@@ -939,7 +687,6 @@
         gap: 6px 12px !important;
         padding: 4px 0 !important;
     }
-
     .products-list table td::before {
         content: attr(data-label);
         font-size: 11px !important;
@@ -950,45 +697,24 @@
         min-width: 80px !important;
         flex-shrink: 0 !important;
     }
-
     .products-list table td:first-child {
         flex-direction: row !important;
         gap: 14px !important;
         margin-bottom: 6px !important;
     }
-
     .products-list table td:first-child::before {
         display: none !important;
     }
-
     .products-list .product-thumb {
         width: 60px !important;
         height: 60px !important;
-        object-fit: cover !important;
         border-radius: 8px !important;
-        flex-shrink: 0 !important;
     }
-
-    .products-list table td:nth-child(2)::before {
-        content: "Nom";
-    }
-
-    .products-list table td:nth-child(3)::before {
-        content: "Catégorie";
-    }
-
-    .products-list table td:nth-child(4)::before {
-        content: "Prix";
-    }
-
-    .products-list table td:nth-child(5)::before {
-        content: "Stock";
-    }
-
-    .products-list table td:last-child::before {
-        content: "Actions";
-    }
-
+    .products-list table td:nth-child(2)::before { content: "Nom"; }
+    .products-list table td:nth-child(3)::before { content: "Catégorie"; }
+    .products-list table td:nth-child(4)::before { content: "Prix"; }
+    .products-list table td:nth-child(5)::before { content: "Stock"; }
+    .products-list table td:last-child::before { content: "Actions"; }
     .products-list table td:last-child {
         justify-content: flex-start !important;
         border-top: 1px solid #F0EBE6 !important;
@@ -997,88 +723,54 @@
         flex-wrap: wrap !important;
         gap: 8px !important;
     }
-
-    .products-list .actions {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 6px !important;
-        justify-content: flex-start !important;
-    }
-
     .products-list .actions a {
         font-size: 13px !important;
         padding: 4px 12px !important;
         background: #F5F2EF !important;
         border-radius: 4px !important;
-        text-decoration: none !important;
         color: #333 !important;
-        white-space: nowrap !important;
     }
-
     .products-list .actions a.delete {
         background: #FDE8E5 !important;
         color: #C0392B !important;
-    }
-
-    .products-list .actions a.delete:hover {
-        background: #FCCFC9 !important;
-    }
-
-    .products-list table td .product-name-mobile {
-        font-weight: 600;
-        font-size: 15px;
-        color: #211C17;
     }
 }
 
 
 /* ============================================================
-   COMMANDES — MOBILE EN CARTES
-   IMPORTANT :
-   aucune min-width sur le tableau mobile
+   COMMANDES — MOBILE EN CARTES (FORCÉ)
    ============================================================ */
 
 @media (max-width: 768px) {
 
     .orders-container {
-        max-width: 100%;
         padding: 0.8rem;
         box-sizing: border-box;
-    }
-
-    .orders-header {
-        margin-bottom: 1.2rem;
     }
 
     .orders-header h1 {
         font-size: 1.3rem;
     }
-
     .orders-filters-card {
         padding: 0.8rem 1rem;
         margin-bottom: 1.2rem;
     }
-
     .orders-filters {
         flex-direction: column;
         align-items: stretch;
     }
-
     .orders-filters input,
     .orders-filters select {
-        width: 100%;
-        min-width: 0;
+        min-width: 0 !important;
+        width: 100% !important;
         box-sizing: border-box;
     }
-
     .orders-filters .btn-reset {
-        width: 100%;
-        box-sizing: border-box;
+        width: 100% !important;
         text-align: center;
     }
 
-
-    /* Conteneur du tableau */
+    /* === Transformation du tableau en cartes === */
     .orders-table-wrap {
         overflow: visible !important;
         background: transparent !important;
@@ -1087,8 +779,6 @@
         border-radius: 0 !important;
     }
 
-
-    /* Tableau */
     .orders-table {
         display: block !important;
         width: 100% !important;
@@ -1101,171 +791,110 @@
     .orders-table thead {
         display: none !important;
     }
-
     .orders-table tbody {
         display: block !important;
         width: 100% !important;
     }
 
-
-    /* Carte commande */
     .orders-table tbody tr {
         display: block !important;
         width: 100% !important;
         box-sizing: border-box !important;
-
         background: #fff !important;
-
         border: 1px solid var(--admin-soft-border) !important;
         border-radius: 14px !important;
-
         padding: 14px !important;
         margin: 0 0 14px 0 !important;
-
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
     }
-
     .orders-table tbody tr:hover td {
         background: transparent !important;
     }
 
-
-    /* Cellules */
     .orders-table tbody td {
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-
         width: 100% !important;
         min-width: 0 !important;
         box-sizing: border-box !important;
-
         padding: 7px 0 !important;
-
         border: none !important;
         border-bottom: 1px solid #F1ECE8 !important;
-
         vertical-align: middle !important;
-
         color: var(--admin-text) !important;
-
         gap: 12px !important;
     }
-
     .orders-table tbody td:last-child {
         border-bottom: none !important;
     }
 
-
-    /* Labels */
+    /* Étiquettes */
     .orders-table tbody td::before {
         flex-shrink: 0 !important;
-
         font-size: 0.62rem !important;
         font-weight: 600 !important;
-
         text-transform: uppercase !important;
         letter-spacing: 0.06em !important;
-
         color: #9A9186 !important;
+        min-width: 80px !important;
     }
+    .orders-table tbody td:nth-child(1)::before { content: "Commande"; }
+    .orders-table tbody td:nth-child(2)::before { content: "Cliente"; }
+    .orders-table tbody td:nth-child(3)::before { content: "Téléphone"; }
+    .orders-table tbody td:nth-child(4)::before { content: "Date"; }
+    .orders-table tbody td:nth-child(5)::before { content: "Montant"; }
+    .orders-table tbody td:nth-child(6)::before { content: "Livraison"; }
+    .orders-table tbody td:nth-child(7)::before { content: "Paiement"; }
+    .orders-table tbody td:nth-child(8)::before { content: "Statut"; }
+    .orders-table tbody td:nth-child(9)::before { content: "Détails"; }
 
-    .orders-table tbody td:nth-child(1)::before {
-        content: "Commande";
-    }
-
-    .orders-table tbody td:nth-child(2)::before {
-        content: "Cliente";
-    }
-
-    .orders-table tbody td:nth-child(3)::before {
-        content: "Téléphone";
-    }
-
-    .orders-table tbody td:nth-child(4)::before {
-        content: "Date";
-    }
-
-    .orders-table tbody td:nth-child(5)::before {
-        content: "Montant";
-    }
-
-    .orders-table tbody td:nth-child(6)::before {
-        content: "Livraison";
-    }
-
-    .orders-table tbody td:nth-child(7)::before {
-        content: "Paiement";
-    }
-
-    .orders-table tbody td:nth-child(8)::before {
-        content: "Statut";
-    }
-
-    .orders-table tbody td:nth-child(9)::before {
-        content: "Détails";
-    }
-
-
-    /* Première ligne */
     .orders-table tbody td:first-child {
         padding-top: 0 !important;
         font-weight: 600 !important;
         color: var(--admin-primary) !important;
     }
-
-
-    /* Montant */
     .orders-table tbody td:nth-child(5) {
         font-weight: 600 !important;
     }
-
 
     /* Statut */
     .orders-table tbody td:nth-child(8) {
         align-items: center !important;
     }
-
     .orders-table .status-badge {
         font-size: 0.58rem !important;
         padding: 4px 10px !important;
         white-space: nowrap !important;
+        display: inline-block !important;
     }
 
-
-    /* Dernière ligne : bouton Voir */
+    /* Lien Détails */
     .orders-table tbody td:last-child {
         margin-top: 4px !important;
         padding-top: 10px !important;
         justify-content: space-between !important;
         border-bottom: none !important;
     }
-
     .orders-table .link-detail {
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
-
         gap: 5px !important;
-
         padding: 6px 14px !important;
-
         background: #F5F2EF !important;
         border-radius: 20px !important;
-
         font-size: 0.7rem !important;
         color: var(--admin-primary) !important;
-
         white-space: nowrap !important;
+        text-decoration: none !important;
     }
-
     .orders-table .link-detail svg {
         width: 13px !important;
         height: 13px !important;
     }
 
-
-    /* Aucun résultat */
+    /* Message vide */
     .orders-table tbody td[colspan] {
         display: block !important;
         width: 100% !important;
@@ -1273,7 +902,6 @@
         padding: 2rem 1rem !important;
         border: none !important;
     }
-
     .orders-table tbody td[colspan]::before {
         display: none !important;
     }
@@ -1281,224 +909,163 @@
 
 
 /* ============================================================
-   FORMULAIRES — TABLETTE
+   RESPONSIVE GÉNÉRAL
    ============================================================ */
 
-@media (max-width: 640px) {
+@media (min-width: 1280px) {
+    .products-layout { gap: 36px; }
+}
 
+@media (max-width: 900px) {
+    .products-layout {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+    .form-panel { padding: 20px; }
+    .products-list th,
+    .products-list td { padding: 10px 12px; }
+}
+
+@media (max-width: 640px) {
     .form-row {
         grid-template-columns: 1fr;
         gap: 0;
     }
-
     .form-panel {
         padding: 16px;
         border-radius: 10px;
     }
+    .form-panel h3 { font-size: 1.25rem; }
+    .btn { padding: 7px 16px; font-size: 0.68rem; }
 
-    .form-panel h3 {
-        font-size: 1.25rem;
-    }
-
-    .btn {
-        padding: 7px 16px;
-        font-size: 0.68rem;
-    }
-
-    .color-checkbox-group {
-        gap: 12px 8px;
-    }
-
-    .color-swatch-item {
-        width: 46px;
-    }
-
+    .color-checkbox-group { gap: 12px 8px; }
+    .color-swatch-item { width: 46px; }
     .color-swatch-item .swatch-circle {
         width: 34px;
         height: 34px;
     }
-
     .color-swatch-item input[type="checkbox"]:checked + .swatch-circle::after {
         font-size: 16px;
     }
-
-    .color-swatch-item .swatch-label {
-        font-size: 0.58rem;
-    }
+    .color-swatch-item .swatch-label { font-size: 0.58rem; }
 
     .color-other-group {
         flex-direction: column;
         align-items: stretch;
     }
-
     .color-other-group input[type="text"] {
         width: 100% !important;
     }
-
     .image-previews .preview-item img,
     .product-images-preview .img-item img {
         width: 56px;
         height: 56px;
     }
-}
 
-
-/* ============================================================
-   MOBILE — 480px
-   ============================================================ */
-
-@media (max-width: 480px) {
-
-    .products-list table td {
-        gap: 4px 8px !important;
-        padding: 3px 0 !important;
-    }
-
-    .products-list table td::before {
-        min-width: 60px !important;
-        font-size: 10px !important;
-    }
-
-    .products-list .product-thumb {
-        width: 50px !important;
-        height: 50px !important;
-    }
-
-    .products-list .actions a {
-        font-size: 11px !important;
-        padding: 3px 8px !important;
-    }
-
-
-    /* Commandes */
-    .orders-container {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .orders-table tbody tr {
-        padding: 12px !important;
-        border-radius: 12px !important;
-    }
-
-    .orders-table tbody td {
-        font-size: 0.72rem !important;
-        padding: 6px 0 !important;
-        gap: 8px !important;
-    }
-
-    .orders-table tbody td::before {
-        font-size: 0.57rem !important;
-    }
-
-    .orders-table .status-badge {
-        font-size: 0.52rem !important;
-        padding: 3px 8px !important;
-    }
-
-    .orders-table .link-detail {
-        font-size: 0.65rem !important;
-        padding: 5px 11px !important;
-    }
-
-
-    /* Dashboard */
     .admin-stats {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
     }
-
     .admin-stat {
         padding: 0.8rem 0.5rem;
     }
-
     .admin-stat__value {
         font-size: 1.3rem;
     }
 }
 
+@media (max-width: 480px) {
+    .products-list table td {
+        gap: 4px 8px !important;
+        padding: 3px 0 !important;
+    }
+    .products-list table td::before {
+        min-width: 60px !important;
+        font-size: 10px !important;
+    }
+    .products-list .product-thumb {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    .products-list .actions a {
+        font-size: 11px !important;
+        padding: 3px 8px !important;
+    }
 
-/* ============================================================
-   TRÈS PETITS ÉCRANS — 400px
-   ============================================================ */
+    /* Commandes très petit */
+    .orders-container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    .orders-table tbody tr {
+        padding: 12px !important;
+        border-radius: 12px !important;
+    }
+    .orders-table tbody td {
+        font-size: 0.72rem !important;
+        padding: 6px 0 !important;
+        gap: 8px !important;
+    }
+    .orders-table tbody td::before {
+        font-size: 0.57rem !important;
+        min-width: 70px !important;
+    }
+    .orders-table .status-badge {
+        font-size: 0.52rem !important;
+        padding: 3px 8px !important;
+    }
+    .orders-table .link-detail {
+        font-size: 0.65rem !important;
+        padding: 5px 11px !important;
+    }
+}
 
 @media (max-width: 400px) {
-
     .products-list table {
         font-size: 0.7rem;
     }
-
     .products-list th,
     .products-list td {
         padding: 6px 8px;
     }
-
     .products-list .product-thumb {
         width: 30px;
         height: 30px;
     }
-
     .form-panel {
         padding: 12px;
     }
-
     .form-panel h3 {
         font-size: 1.1rem;
     }
-
     .btn {
         padding: 6px 12px;
         font-size: 0.62rem;
     }
-
     .btn-block {
         padding: 8px;
     }
-
     .color-swatch-item {
         width: 42px;
     }
-
     .color-swatch-item .swatch-circle {
         width: 30px;
         height: 30px;
     }
-
     .color-swatch-item input[type="checkbox"]:checked + .swatch-circle::after {
         font-size: 14px;
     }
-
     .color-checkbox-group {
         gap: 10px 6px;
     }
-
-
-    /* Dashboard */
     .admin-stats {
         grid-template-columns: 1fr 1fr;
         gap: 0.6rem;
     }
-
     .admin-stat {
         padding: 0.6rem 0.4rem;
     }
-
     .admin-stat__value {
         font-size: 1.1rem;
-    }
-
-
-    /* Commandes */
-    .orders-table tbody td {
-        font-size: 0.68rem !important;
-    }
-
-    .orders-table tbody td::before {
-        font-size: 0.53rem !important;
-    }
-
-    .orders-table .status-badge {
-        font-size: 0.48rem !important;
-        padding: 3px 7px !important;
     }
 }

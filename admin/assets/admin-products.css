@@ -751,3 +751,156 @@
         gap: 10px 6px;
     }
 }
+/* =====================================================
+   ADMIN : DASHBOARD & ORDERS (responsive)
+   ===================================================== */
+
+/* ---- Dashboard : cartes statistiques ---- */
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.admin-stat {
+    background: #fff;
+    padding: 1.2rem 1.2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(92, 26, 46, 0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    text-align: center;
+}
+
+.admin-stat__label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9a9186;
+    margin-bottom: 0.4rem;
+}
+
+.admin-stat__value {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #211C17;
+}
+
+.admin-stat__value--accent {
+    color: #5C1A2E;
+}
+
+@media (max-width: 640px) {
+    .admin-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+    .admin-stat {
+        padding: 0.8rem 0.5rem;
+    }
+    .admin-stat__value {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .admin-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+    }
+    .admin-stat {
+        padding: 0.6rem 0.4rem;
+    }
+    .admin-stat__value {
+        font-size: 1.1rem;
+    }
+}
+
+/* ---- Tableau des commandes (orders) ---- */
+.admin-table-wrap,
+.orders-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -0.5rem; /* pour éviter le débordement si padding */
+    padding: 0 0.5rem;
+}
+
+.admin-table,
+.orders-table {
+    width: 100%;
+    min-width: 600px; /* force le scroll horizontal si nécessaire */
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.admin-table th,
+.orders-table th {
+    background: #f8fafc;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #9a9186;
+    border-bottom: 2px solid rgba(92, 26, 46, 0.06);
+    white-space: nowrap;
+}
+
+.admin-table td,
+.orders-table td {
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid rgba(92, 26, 46, 0.04);
+    vertical-align: middle;
+    color: #211C17;
+}
+
+.admin-table tr:last-child td,
+.orders-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ---- Sur mobile : réduire la taille et le padding ---- */
+@media (max-width: 768px) {
+    .admin-table,
+    .orders-table {
+        font-size: 0.75rem;
+        min-width: 500px; /* permet un scroll léger */
+    }
+    .admin-table th,
+    .orders-table th,
+    .admin-table td,
+    .orders-table td {
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-table,
+    .orders-table {
+        font-size: 0.7rem;
+        min-width: 420px;
+    }
+    .admin-table th,
+    .orders-table th,
+    .admin-table td,
+    .orders-table td {
+        padding: 0.3rem 0.4rem;
+    }
+}
+
+/* ---- Boutons "Voir tous" dans produits ---- */
+.products-list .btn-secondary {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.7rem;
+    border-radius: 30px;
+    background: #f1f3f5;
+    color: #4a4a4a;
+    border: 1px solid #d1d5db;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.products-list .btn-secondary:hover {
+    background: #e5e7eb;
+    border-color: #b0b3b8;
+}

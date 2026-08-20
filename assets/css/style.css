@@ -3930,3 +3930,202 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
     }
 
 }
+/* =====================================================
+   PANIER — MOBILE (version carte)
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    /* ----- Cacher les en-têtes du tableau ----- */
+    .cart-table thead {
+        display: none !important;
+    }
+
+    .cart-table,
+    .cart-table tbody,
+    .cart-table tr,
+    .cart-table td {
+        display: block !important;
+        width: 100% !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+    }
+
+    .cart-table tr {
+        background: #ffffff !important;
+        border: 1px solid #e8e0d8 !important;
+        border-radius: 12px !important;
+        padding: 16px !important;
+        margin-bottom: 16px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+    }
+
+    /* ----- Disposition en grille pour chaque ligne ----- */
+    .cart-table td {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        gap: 8px 12px !important;
+        padding: 4px 0 !important;
+        border-bottom: none !important;
+    }
+
+    /* ----- Colonne produit (image + nom) ----- */
+    .cart-table td:first-child {
+        flex-direction: row !important;
+        gap: 14px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .cart-item {
+        display: flex !important;
+        align-items: center !important;
+        gap: 14px !important;
+        width: 100% !important;
+    }
+
+    .cart-item__img {
+        width: 70px !important;
+        height: 90px !important;
+        object-fit: cover !important;
+        border-radius: 6px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .cart-item__name {
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        margin: 0 !important;
+    }
+
+    /* ----- Étiquettes pour chaque colonne (Taille, Couleur, Qté, Prix) ----- */
+    .cart-table td::before {
+        content: attr(data-label);
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.08em !important;
+        text-transform: uppercase !important;
+        color: #9a8f84 !important;
+        min-width: 60px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* ----- Taille ----- */
+    .cart-table td:nth-child(2)::before {
+        content: "Taille";
+    }
+    .cart-table td:nth-child(2) {
+        font-size: 14px !important;
+        color: #211C17 !important;
+    }
+
+    /* ----- Couleur ----- */
+    .cart-table td:nth-child(3)::before {
+        content: "Couleur";
+    }
+    .cart-table td:nth-child(3) {
+        font-size: 14px !important;
+        color: #211C17 !important;
+    }
+
+    /* ----- Quantité ----- */
+    .cart-table td:nth-child(4)::before {
+        content: "Quantité";
+    }
+    .cart-table td:nth-child(4) {
+        justify-content: flex-start !important;
+        gap: 10px !important;
+    }
+
+    .cart-qty {
+        border: 1px solid #ddd8d2 !important;
+        border-radius: 6px !important;
+        overflow: hidden !important;
+        display: inline-flex !important;
+    }
+    .cart-qty button {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 16px !important;
+        background: #f8f6f4 !important;
+        border: none !important;
+        cursor: pointer !important;
+        color: #211C17 !important;
+    }
+    .cart-qty button:hover {
+        background: #e8e0d8 !important;
+    }
+    .cart-qty input {
+        width: 38px !important;
+        height: 32px !important;
+        text-align: center !important;
+        border: none !important;
+        border-left: 1px solid #ddd8d2 !important;
+        border-right: 1px solid #ddd8d2 !important;
+        font-size: 14px !important;
+        background: #ffffff !important;
+        padding: 0 !important;
+    }
+
+    /* ----- Prix ----- */
+    .cart-table td:nth-child(5)::before {
+        content: "Prix";
+    }
+    .cart-table td:nth-child(5) {
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        color: #211C17 !important;
+    }
+
+    /* ----- Bouton supprimer ----- */
+    .cart-table td:last-child {
+        justify-content: flex-end !important;
+        border-top: 1px solid #f0ebe6 !important;
+        margin-top: 6px !important;
+        padding-top: 10px !important;
+    }
+    .cart-table td:last-child::before {
+        content: none !important;
+    }
+    .cart-remove {
+        font-size: 22px !important;
+        color: #b0a69b !important;
+        padding: 4px 10px !important;
+        border-radius: 6px !important;
+        transition: background 0.2s, color 0.2s !important;
+        background: transparent !important;
+        border: none !important;
+        cursor: pointer !important;
+    }
+    .cart-remove:hover {
+        background: #f5f0eb !important;
+        color: #8b2020 !important;
+    }
+
+    /* ----- Résumé du panier ----- */
+    .cart-summary {
+        max-width: 100% !important;
+        margin: 24px 0 0 0 !important;
+        padding: 20px !important;
+        border-radius: 12px !important;
+        background: #fcfaf7 !important;
+        border: 1px solid #e8e0d8 !important;
+    }
+
+    .cart-summary__row {
+        font-size: 15px !important;
+        padding: 6px 0 !important;
+    }
+    .cart-summary__row--total {
+        font-size: 18px !important;
+        padding-top: 12px !important;
+        border-top: 2px solid #ddd8d2 !important;
+    }
+
+    .cart-summary .btn {
+        padding: 14px !important;
+        font-size: 14px !important;
+        border-radius: 8px !important;
+    }
+}

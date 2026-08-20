@@ -15,8 +15,6 @@ $pass = getenv('DB_PASS') ?: '';
 $port = getenv('DB_PORT') ?: '3306';
 
 // --- Constantes ---
-// ⚠️ LOCAL : utilise http://localhost/fleura
-// ⚠️ RENDER : utilise la variable d'environnement SITE_URL
 define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/fleura');
 define('CURRENCY', getenv('CURRENCY') ?: 'DA');
 define('DELIVERY_FEE', (float)(getenv('DELIVERY_FEE') ?: 600));
@@ -27,7 +25,8 @@ $driver = 'unknown';
 try {
     // --- Connexion en ligne (Supabase PostgreSQL) ---
     if (getenv('DB_HOST')) {
-        // DSN avec le nom d'hôte directement + sslmode=require
+        // Utiliser le port du transaction pooler (6543) au lieu de 5432
+        // Le pooler est souvent accessible en IPv4
         $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require";
         $driver = 'pgsql';
     } else {

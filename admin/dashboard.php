@@ -24,10 +24,6 @@ $recent_orders = $pdo->query("SELECT o.*, c.first_name, c.last_name FROM orders 
         <div class="admin-stat__value"><?= (int)$stats['delivered_orders'] ?></div>
     </div>
     <div class="admin-stat">
-        <div class="admin-stat__label">Chiffre d'affaires</div>
-        <div class="admin-stat__value admin-stat__value--accent"><?= format_price($stats['revenue']) ?></div>
-    </div>
-    <div class="admin-stat">
         <div class="admin-stat__label">Produits</div>
         <div class="admin-stat__value"><?= (int)$stats['total_products'] ?></div>
     </div>
@@ -56,12 +52,12 @@ $recent_orders = $pdo->query("SELECT o.*, c.first_name, c.last_name FROM orders 
             <?php else: ?>
                 <?php foreach ($recent_orders as $order): ?>
                     <tr>
-                        <td><?= e($order['order_number']) ?></td>
-                        <td><?= e($order['first_name'] . ' ' . $order['last_name']) ?></td>
-                        <td><?= date('d/m/Y', strtotime($order['created_at'])) ?></td>
-                        <td><?= format_price($order['total']) ?></td>
-                        <td><span class="status-badge status-badge--<?= e($order['status']) ?>"><?= get_status_label($order['status']) ?></span></td>
-                        <td><a href="<?= e(SITE_URL) ?>/admin/order-details.php?id=<?= (int)$order['id'] ?>" class="link-view">Voir →</a></td>
+                        <td data-label="N° Commande"><?= e($order['order_number']) ?></td>
+                        <td data-label="Cliente"><?= e($order['first_name'] . ' ' . $order['last_name']) ?></td>
+                        <td data-label="Date"><?= date('d/m/Y', strtotime($order['created_at'])) ?></td>
+                        <td data-label="Montant"><?= format_price($order['total']) ?></td>
+                        <td data-label="Statut"><span class="status-badge status-badge--<?= e($order['status']) ?>"><?= get_status_label($order['status']) ?></span></td>
+                        <td data-label="Détails"><a href="<?= e(SITE_URL) ?>/admin/order-details.php?id=<?= (int)$order['id'] ?>" class="link-view">Voir →</a></td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>

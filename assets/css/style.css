@@ -3809,47 +3809,6 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
     }
 
 
-    /* =================================================
-       OVERLAY
-       ================================================= */
-
-    body.menu-open {
-
-        overflow: hidden !important;
-    }
-
-
-    body.menu-open::before {
-
-        content: "";
-
-        position: fixed;
-
-        inset: 0;
-
-        background:
-            rgba(20,12,15,.22);
-
-        z-index: 1500;
-
-        pointer-events: none;
-
-        animation:
-            fleuraOverlay .20s ease forwards;
-    }
-
-
-    @keyframes fleuraOverlay {
-
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
-    }
-
 
     /* =================================================
        ANIMATION MENU

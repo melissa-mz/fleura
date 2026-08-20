@@ -1,35 +1,32 @@
 <?php
 // =====================================================
 // FLEURA — Configuration de la base de données
-// Compatible WAMP / localhost
+// Compatible WAMP / localhost / Render
 // =====================================================
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// ---- LIGNE TEMPORAIRE : vide le panier corrompu ----
-// À RETIRER — maintenant que tout fonctionne, on commente cette ligne.
-// $_SESSION['cart'] = [];
-// -----------------------------------------------------
-
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'fleura');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+// Variables d’environnement (Render) ou valeurs par défaut (localhost)
+$host = getenv('DB_HOST') ?: 'localhost';
+$dbname = getenv('DB_NAME') ?: 'fleura';
+$user = getenv('DB_USER') ?: 'root';
+$pass = getenv('DB_PASS') ?: '';
 
 define('SITE_NAME', 'FLEURA');
-define('SITE_URL', 'http://localhost/fleura');
-define('CURRENCY', 'DA');
 
-// Frais de livraison par défaut (en DA)
-define('DELIVERY_FEE', 600);
+// SITE_URL : priorité à la variable d’environnement Render
+define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/fleura');
+
+define('CURRENCY', getenv('CURRENCY') ?: 'DA');
+define('DELIVERY_FEE', (float)(getenv('DELIVERY_FEE') ?: 600));
 
 try {
     $pdo = new PDO(
-        "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4",
-        DB_USER,
-        DB_PASS,
+        "mysql:host=" . $host . ";dbname=" . $dbname . ";charset=utf8mb4",
+        $user,
+        $pass,
         [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

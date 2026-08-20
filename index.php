@@ -160,28 +160,6 @@ $image_base = SITE_URL . '/assets/images/products/';
     </div>
 </section>
 
-<!-- ============ TÉMOIGNAGES ============ -->
-<section class="testimonials">
-    <div class="container">
-        <p class="eyebrow reveal" style="text-align:center;">Avis clients</p>
-        <h2 class="section-title reveal">Elles parlent de Fleura</h2>
-        <div class="testimonials__rating reveal">
-            <div class="testimonials__stars">★★★★★</div>
-            <div class="testimonials__score">4,8 / 5</div>
-            <div class="testimonials__count">8 avis</div>
-        </div>
-    </div>
-    <div class="testimonials__grid">
-        <?php foreach ($testimonials as $t): ?>
-            <div class="testimonial-card reveal">
-                <div class="testimonial-card__stars"><?= str_repeat('★', $t['rating']) . str_repeat('☆', 5 - $t['rating']) ?></div>
-                <p class="testimonial-card__text">"<?= e($t['text']) ?>"</p>
-                <p class="testimonial-card__name"><?= e($t['name']) ?></p>
-            </div>
-        <?php endforeach; ?>
-    </div>
-</section>
-
 <!-- =====================================================
      FLEURA — SECTION RESEAUX SOCIAUX (2 cartes)
      ===================================================== -->

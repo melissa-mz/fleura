@@ -395,16 +395,18 @@ function renderOrdersTable($orders) {
         letter-spacing: 0 !important;
     }
 
-    /* Répartition des largeurs (total = 100%) */
-    .orders-table th:nth-child(1), .orders-table td:nth-child(1) { width: 11%; }  /* N° */
-    .orders-table th:nth-child(2), .orders-table td:nth-child(2) { width: 15%; }  /* Cliente */
-    .orders-table th:nth-child(3), .orders-table td:nth-child(3) { width: 13%; }  /* Téléphone */
-    .orders-table th:nth-child(4), .orders-table td:nth-child(4) { width: 10%; }  /* Date */
-    .orders-table th:nth-child(5), .orders-table td:nth-child(5) { width: 11%; }  /* Montant */
-    .orders-table th:nth-child(6), .orders-table td:nth-child(6) { width: 10%; }  /* Livraison */
-    .orders-table th:nth-child(7), .orders-table td:nth-child(7) { width: 9%;  }  /* Paiement */
-    .orders-table th:nth-child(8), .orders-table td:nth-child(8) { width: 13%; }  /* Statut */
-    .orders-table th:nth-child(9), .orders-table td:nth-child(9) { width: 8%;  }  /* Action */
+    /* N° commande et Montant masqués sur mobile : déjà visibles dans le détail de la commande */
+    .orders-table th:nth-child(1), .orders-table td:nth-child(1) { display: none !important; }  /* N° */
+    .orders-table th:nth-child(5), .orders-table td:nth-child(5) { display: none !important; }  /* Montant */
+
+    /* Répartition des largeurs sur les 7 colonnes restantes (total = 100%) */
+    .orders-table th:nth-child(2), .orders-table td:nth-child(2) { width: 20%; }  /* Cliente */
+    .orders-table th:nth-child(3), .orders-table td:nth-child(3) { width: 18%; }  /* Téléphone */
+    .orders-table th:nth-child(4), .orders-table td:nth-child(4) { width: 14%; }  /* Date */
+    .orders-table th:nth-child(6), .orders-table td:nth-child(6) { width: 14%; }  /* Livraison */
+    .orders-table th:nth-child(7), .orders-table td:nth-child(7) { width: 12%; }  /* Paiement */
+    .orders-table th:nth-child(8), .orders-table td:nth-child(8) { width: 16%; }  /* Statut */
+    .orders-table th:nth-child(9), .orders-table td:nth-child(9) { width: 6%;  }  /* Action */
 
     .orders-table .status-badge {
         font-size: 0.44rem !important;

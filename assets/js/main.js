@@ -4,28 +4,48 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // =====================================================
+    // =================================================
     // NAVBAR
-    // =====================================================
+    // =================================================
 
     const navbar = document.getElementById('navbar');
     const burger = document.getElementById('burger');
     const navMenu = document.getElementById('navMenu');
-    const articlesDropdown = document.getElementById('articlesDropdown');
+
+    const articlesDropdown =
+        document.getElementById('articlesDropdown');
+
+    const articlesTrigger =
+        articlesDropdown
+            ? articlesDropdown.querySelector(
+                '.navbar__dropdown-trigger'
+            )
+            : null;
+
+    const articlesPanel =
+        articlesDropdown
+            ? articlesDropdown.querySelector(
+                '.navbar__dropdown-panel'
+            )
+            : null;
 
 
-    // =====================================================
+    // =================================================
     // NAVBAR — EFFET AU SCROLL
-    // =====================================================
+    // =================================================
 
     if (navbar) {
 
         const onScroll = () => {
 
             if (window.scrollY > 30) {
+
                 navbar.classList.add('scrolled');
+
             } else {
+
                 navbar.classList.remove('scrolled');
+
             }
 
         };
@@ -40,82 +60,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // =====================================================
-    // MENU HAMBURGER MOBILE
-    // =====================================================
+    // =================================================
+    // FONCTION : FERMER LE MENU MOBILE
+    // =================================================
 
-    if (burger && navMenu) {
+    function closeMobileMenu() {
 
-        burger.addEventListener('click', (event) => {
+        if (!burger || !navMenu) {
+            return;
+        }
 
-            event.preventDefault();
-            event.stopPropagation();
+        burger.classList.remove('active');
 
-            const isOpen =
-                navMenu.classList.toggle('open');
+        navMenu.classList.remove('open');
 
-            // Burger → X
-            burger.classList.toggle(
-                'active',
-                isOpen
+        burger.setAttribute(
+            'aria-expanded',
+            'false'
+        );
+
+        burger.setAttribute(
+            'aria-label',
+            'Ouvrir le menu'
+        );
+
+        document.body.classList.remove(
+            'menu-open'
+        );
+
+        // Fermer également Articles
+        if (articlesDropdown) {
+
+            articlesDropdown.classList.remove(
+                'open'
             );
 
-            // Accessibilité
-            burger.setAttribute(
+        }
+
+        if (articlesTrigger) {
+
+            articlesTrigger.setAttribute(
                 'aria-expanded',
-                isOpen ? 'true' : 'false'
-            );
-
-            burger.setAttribute(
-                'aria-label',
-                isOpen
-                    ? 'Fermer le menu'
-                    : 'Ouvrir le menu'
-            );
-
-            // Bloquer le scroll derrière le menu
-            document.body.classList.toggle(
-                'menu-open',
-                isOpen
-            );
-
-        });
-
-    }
-
-
-    // =====================================================
-    // SOUS-MENU "ARTICLES"
-    // =====================================================
-
-    if (articlesDropdown) {
-
-        const trigger =
-            articlesDropdown.querySelector(
-                '.navbar__dropdown-trigger'
-            );
-
-        if (trigger) {
-
-            trigger.addEventListener(
-                'click',
-                (event) => {
-
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    const isOpen =
-                        articlesDropdown.classList.toggle(
-                            'open'
-                        );
-
-                    // Accessibilité
-                    trigger.setAttribute(
-                        'aria-expanded',
-                        isOpen ? 'true' : 'false'
-                    );
-
-                }
+                'false'
             );
 
         }
@@ -123,113 +109,125 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // =====================================================
-    // FERMER LE MENU APRÈS CLIC SUR UN LIEN
-    // =====================================================
+    // =================================================
+    // FONCTION : OUVRIR LE MENU MOBILE
+    // =================================================
 
-    if (navMenu) {
+    function openMobileMenu() {
 
-        const links =
-            navMenu.querySelectorAll('a');
+        if (!burger || !navMenu) {
+            return;
+        }
 
-        links.forEach((link) => {
+        burger.classList.add('active');
 
-            link.addEventListener(
-                'click',
-                () => {
+        navMenu.classList.add('open');
 
-                    // Fermer burger
-                    if (burger) {
+        burger.setAttribute(
+            'aria-expanded',
+            'true'
+        );
 
-                        burger.classList.remove(
-                            'active'
-                        );
+        burger.setAttribute(
+            'aria-label',
+            'Fermer le menu'
+        );
 
-                        burger.setAttribute(
-                            'aria-expanded',
-                            'false'
-                        );
-
-                        burger.setAttribute(
-                            'aria-label',
-                            'Ouvrir le menu'
-                        );
-
-                    }
-
-                    // Fermer menu
-                    navMenu.classList.remove(
-                        'open'
-                    );
-
-                    // Réactiver le scroll
-                    document.body.classList.remove(
-                        'menu-open'
-                    );
-
-                }
-            );
-
-        });
+        document.body.classList.add(
+            'menu-open'
+        );
 
     }
 
 
-    // =====================================================
-    // FERMER AVEC LA TOUCHE ESC
-    // =====================================================
+    // =================================================
+    // HAMBURGER
+    // =================================================
 
-    document.addEventListener(
-        'keydown',
-        (event) => {
+    if (burger && navMenu) {
 
-            if (event.key !== 'Escape') {
-                return;
-            }
+        burger.addEventListener(
+            'click',
+            (event) => {
 
-            // Fermer burger
-            if (burger) {
+                event.preventDefault();
 
-                burger.classList.remove(
-                    'active'
-                );
+                event.stopPropagation();
 
-                burger.setAttribute(
-                    'aria-expanded',
-                    'false'
-                );
-
-                burger.setAttribute(
-                    'aria-label',
-                    'Ouvrir le menu'
-                );
-
-            }
-
-            // Fermer menu
-            if (navMenu) {
-
-                navMenu.classList.remove(
-                    'open'
-                );
-
-            }
-
-            // Fermer Articles
-            if (articlesDropdown) {
-
-                articlesDropdown.classList.remove(
-                    'open'
-                );
-
-                const trigger =
-                    articlesDropdown.querySelector(
-                        '.navbar__dropdown-trigger'
+                const isOpen =
+                    navMenu.classList.contains(
+                        'open'
                     );
 
-                if (trigger) {
+                if (isOpen) {
 
-                    trigger.setAttribute(
+                    closeMobileMenu();
+
+                } else {
+
+                    openMobileMenu();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // ARTICLES — DROPDOWN MOBILE
+    // =================================================
+
+    if (
+        articlesDropdown &&
+        articlesTrigger &&
+        articlesPanel
+    ) {
+
+        articlesTrigger.addEventListener(
+            'click',
+            (event) => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                const isOpen =
+                    articlesDropdown.classList.contains(
+                        'open'
+                    );
+
+
+                // -----------------------------------------
+                // OUVRIR
+                // -----------------------------------------
+
+                if (!isOpen) {
+
+                    articlesDropdown.classList.add(
+                        'open'
+                    );
+
+                    articlesTrigger.setAttribute(
+                        'aria-expanded',
+                        'true'
+                    );
+
+                }
+
+
+                // -----------------------------------------
+                // FERMER
+                // -----------------------------------------
+
+                else {
+
+                    articlesDropdown.classList.remove(
+                        'open'
+                    );
+
+                    articlesTrigger.setAttribute(
                         'aria-expanded',
                         'false'
                     );
@@ -237,22 +235,143 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
             }
+        );
 
-            // Réactiver scroll
-            document.body.classList.remove(
-                'menu-open'
+    }
+
+
+    // =================================================
+    // LIENS DU MENU
+    // =================================================
+
+    if (navMenu) {
+
+        const menuLinks =
+            navMenu.querySelectorAll(
+                'a'
             );
+
+
+        menuLinks.forEach((link) => {
+
+            link.addEventListener(
+                'click',
+                () => {
+
+                    /*
+                     * Si on clique sur un lien :
+                     * on ferme le menu mobile.
+                     *
+                     * Cela concerne aussi les
+                     * catégories dans Articles.
+                     */
+
+                    closeMobileMenu();
+
+                }
+            );
+
+        });
+
+    }
+
+
+    // =================================================
+    // FERMER SI ON CLIQUE SUR L'OVERLAY
+    // =================================================
+
+    document.addEventListener(
+        'click',
+        (event) => {
+
+            if (!navMenu || !burger) {
+                return;
+            }
+
+            const isMenuOpen =
+                navMenu.classList.contains(
+                    'open'
+                );
+
+            if (!isMenuOpen) {
+                return;
+            }
+
+
+            const clickedInsideMenu =
+                navMenu.contains(
+                    event.target
+                );
+
+            const clickedBurger =
+                burger.contains(
+                    event.target
+                );
+
+
+            if (
+                !clickedInsideMenu &&
+                !clickedBurger
+            ) {
+
+                closeMobileMenu();
+
+            }
 
         }
     );
 
 
-    // =====================================================
-    // HERO — PARALLAX
-    // =====================================================
+    // =================================================
+    // ESC — FERMER LE MENU
+    // =================================================
+
+    document.addEventListener(
+        'keydown',
+        (event) => {
+
+            if (
+                event.key === 'Escape' ||
+                event.key === 'Esc'
+            ) {
+
+                closeMobileMenu();
+
+            }
+
+        }
+    );
+
+
+    // =================================================
+    // RESPONSIVE
+    // Fermer le menu si on repasse en desktop
+    // =================================================
+
+    window.addEventListener(
+        'resize',
+        () => {
+
+            if (
+                window.innerWidth > 900
+            ) {
+
+                closeMobileMenu();
+
+            }
+
+        }
+    );
+
+
+    // =================================================
+    // HERO PARALLAX
+    // =================================================
 
     const heroImage =
-        document.querySelector('.hero__image');
+        document.querySelector(
+            '.hero__image'
+        );
 
     if (heroImage) {
 
@@ -280,14 +399,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // =====================================================
+    // =================================================
     // REVEAL ON SCROLL
-    // =====================================================
+    // =================================================
 
     const revealEls =
-        document.querySelectorAll('.reveal');
+        document.querySelectorAll(
+            '.reveal'
+        );
 
-    if (revealEls.length > 0) {
+    if (
+        revealEls.length > 0 &&
+        'IntersectionObserver' in window
+    ) {
 
         const observer =
             new IntersectionObserver(
@@ -316,21 +440,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     threshold: 0.12,
+
                     rootMargin:
                         '0px 0px -50px 0px'
                 }
             );
 
+
         revealEls.forEach(
-            (el) => observer.observe(el)
+            (el) => {
+
+                observer.observe(el);
+
+            }
         );
 
     }
 
 
-    // =====================================================
+    // =================================================
     // PRODUCT GALLERY
-    // =====================================================
+    // =================================================
 
     const galleryMain =
         document.getElementById(
@@ -341,6 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll(
             '.product-gallery__thumb'
         );
+
 
     if (
         galleryMain &&
@@ -363,12 +494,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             return;
                         }
 
+
                         const imgSrc =
                             image.dataset.full ||
                             image.src;
 
+
                         galleryMain.src =
                             imgSrc;
+
 
                         galleryThumbs.forEach(
                             (t) => {
@@ -379,6 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             }
                         );
+
 
                         thumb.classList.add(
                             'active'
@@ -393,10 +528,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // =====================================================
+    // =================================================
     // PRODUCT OPTIONS
-    // TAILLE / COULEUR
-    // =====================================================
+    // =================================================
 
     document
         .querySelectorAll(
@@ -418,6 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             return;
                         }
 
+
                         group
                             .querySelectorAll(
                                 '.product-options__choice'
@@ -432,6 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
                             );
 
+
                         target.classList.add(
                             'selected'
                         );
@@ -443,9 +579,9 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
 
-    // =====================================================
+    // =================================================
     // QUANTITY SELECTOR
-    // =====================================================
+    // =================================================
 
     document
         .querySelectorAll(
@@ -470,30 +606,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     );
 
 
+                if (!input) {
+                    return;
+                }
+
+
                 // -----------------------------------------
                 // DIMINUER
                 // -----------------------------------------
 
-                if (dec && input) {
+                if (dec) {
 
                     dec.addEventListener(
                         'click',
                         () => {
 
-                            const currentValue =
+                            const current =
                                 parseInt(
-                                    input.value,
-                                    10
+                                    input.value
                                 ) || 1;
+
 
                             const value =
                                 Math.max(
                                     1,
-                                    currentValue - 1
+                                    current - 1
                                 );
+
 
                             input.value =
                                 value;
+
 
                             if (
                                 input.dataset.cartKey
@@ -515,23 +658,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 // AUGMENTER
                 // -----------------------------------------
 
-                if (inc && input) {
+                if (inc) {
 
                     inc.addEventListener(
                         'click',
                         () => {
 
-                            const currentValue =
+                            const current =
                                 parseInt(
-                                    input.value,
-                                    10
+                                    input.value
                                 ) || 1;
 
+
                             const value =
-                                currentValue + 1;
+                                current + 1;
+
 
                             input.value =
                                 value;
+
 
                             if (
                                 input.dataset.cartKey
@@ -552,9 +697,9 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
 
-    // =====================================================
-    // UPDATE CART FORM
-    // =====================================================
+    // =================================================
+    // UPDATE CART
+    // =================================================
 
     function updateCartForm(input) {
 
@@ -570,10 +715,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // =====================================================
+    // =================================================
     // DELIVERY TYPE
-    // CHECKOUT
-    // =====================================================
+    // =================================================
 
     const deliveryRadios =
         document.querySelectorAll(
@@ -613,7 +757,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    if (deliveryRadios.length > 0) {
+    if (
+        deliveryRadios.length > 0
+    ) {
 
         deliveryRadios.forEach(
             (radio) => {
@@ -626,14 +772,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         );
 
+
         toggleDelivery();
 
     }
 
 
-    // =====================================================
-    // DELIVERY OPTION VISUAL SELECTION
-    // =====================================================
+    // =================================================
+    // DELIVERY OPTION
+    // =================================================
 
     document
         .querySelectorAll(
@@ -651,6 +798,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 'input[type="radio"]'
                             );
 
+
                         if (radio) {
 
                             radio.checked =
@@ -659,6 +807,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             toggleDelivery();
 
                         }
+
 
                         document
                             .querySelectorAll(
@@ -674,6 +823,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
                             );
 
+
                         option.classList.add(
                             'selected'
                         );
@@ -685,9 +835,9 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
 
-    // =====================================================
+    // =================================================
     // PRODUCT TABS
-    // =====================================================
+    // =================================================
 
     const tabButtons =
         document.querySelectorAll(
@@ -710,7 +860,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const target =
                         button.dataset.tab;
 
-                    // Retirer active des boutons
+
                     tabButtons.forEach(
                         (btn) => {
 
@@ -721,7 +871,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     );
 
-                    // Masquer les panels
+
                     tabPanels.forEach(
                         (panel) => {
 
@@ -732,16 +882,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     );
 
-                    // Activer bouton
+
                     button.classList.add(
                         'active'
                     );
 
-                    // Activer panel correspondant
+
                     const panel =
                         document.getElementById(
                             'tab-' + target
                         );
+
 
                     if (panel) {
 
@@ -758,9 +909,9 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
 
-    // =====================================================
-    // MOBILE FILTER TOGGLE
-    // =====================================================
+    // =================================================
+    // MOBILE FILTER
+    // =================================================
 
     const filterToggle =
         document.getElementById(
@@ -790,76 +941,6 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
     }
-
-
-    // =====================================================
-    // FERMER LE MENU SI ON PASSE SUR DESKTOP
-    // =====================================================
-
-    window.addEventListener(
-        'resize',
-        () => {
-
-            if (
-                window.innerWidth > 900
-            ) {
-
-                if (burger) {
-
-                    burger.classList.remove(
-                        'active'
-                    );
-
-                    burger.setAttribute(
-                        'aria-expanded',
-                        'false'
-                    );
-
-                    burger.setAttribute(
-                        'aria-label',
-                        'Ouvrir le menu'
-                    );
-
-                }
-
-                if (navMenu) {
-
-                    navMenu.classList.remove(
-                        'open'
-                    );
-
-                }
-
-                if (articlesDropdown) {
-
-                    articlesDropdown.classList.remove(
-                        'open'
-                    );
-
-                    const trigger =
-                        articlesDropdown.querySelector(
-                            '.navbar__dropdown-trigger'
-                        );
-
-                    if (trigger) {
-
-                        trigger.setAttribute(
-                            'aria-expanded',
-                            'false'
-                        );
-
-                    }
-
-                }
-
-                document.body.classList.remove(
-                    'menu-open'
-                );
-
-            }
-
-        }
-    );
 
 
 });

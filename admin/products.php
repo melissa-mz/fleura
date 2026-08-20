@@ -217,13 +217,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // ============================================================
-// RÉCUPÉRATION DES DONNÉES
+// RÉCUPÉRATION DES DONNÉES AVEC LIMITE
 // ============================================================
-$categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll();
-$products = $pdo->query("SELECT p.*, c.name AS category_name FROM products p
-                         LEFT JOIN categories c ON p.category_id = c.id
-                         ORDER BY p.created_at DESC")->fetchAll();
 
+// Nombre de produits à afficher par défaut
+$limit = 10;
+
+// Voir tous les produits ?
+$view_all = isset($_GET['view']) && $_GET['view'] === 'all';
+
+// Total des produits (tous)
+$total_products = $pdo->query("SELECT COUNT(*) FROM products")->fetchColumn();
+
+// Requête SQL avec ou sans limite
+$limit_clause = $view_all ? '' : "LIMIT " . (int)$limit;
+$sql = "SELECT p.*, c.name AS category_name 
+        FROM products p
+        LEFT JOIN categories c ON p.category_id = c.id
+        ORDER BY p.created_at DESC $limit_clause";
+$products = $pdo->query($sql)->fetchAll();
+
+$categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll();
 $types = $pdo->query("SELECT DISTINCT type FROM products WHERE type IS NOT NULL AND type != '' ORDER BY type")->fetchAll(PDO::FETCH_COLUMN);
 
 $edit = null;
@@ -500,7 +514,9 @@ if (!empty($edit['id'])) {
     <div class="products-list">
         <div style="padding:16px 16px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
             <h3 style="margin:0; font-size:1.1rem;">Tous les produits</h3>
-            <span style="font-size:0.8rem; color:var(--admin-text-light, #5C605F);"><?= count($products) ?> article(s)</span>
+            <span style="font-size:0.8rem; color:var(--admin-text-light, #5C605F);">
+                <?= count($products) ?> / <?= $total_products ?> article(s)
+            </span>
         </div>
         <div class="table-wrap">
             <table>
@@ -566,6 +582,25 @@ if (!empty($edit['id'])) {
                 </tbody>
             </table>
         </div>
+
+        <!-- ============================================================
+             BOUTON "VOIR TOUS" / "VOIR UNIQUEMENT LES DERNIERS"
+        ============================================================ -->
+        <?php if (!$view_all && $total_products > $limit): ?>
+            <div style="text-align:center; padding:16px; border-top:1px solid #e8e0d8;">
+                <a href="<?= SITE_URL ?>/admin/products.php?view=all" class="btn btn-secondary">
+                    Voir tous les produits (<?= $total_products ?>)
+                </a>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($view_all && $total_products > $limit): ?>
+            <div style="text-align:center; padding:16px; border-top:1px solid #e8e0d8;">
+                <a href="<?= SITE_URL ?>/admin/products.php" class="btn btn-secondary">
+                    Voir uniquement les derniers (<?= $limit ?>)
+                </a>
+            </div>
+        <?php endif; ?>
     </div>
 
     <!-- COLONNE DROITE : FORMULAIRE (ajout / édition) -->

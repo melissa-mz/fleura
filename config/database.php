@@ -8,75 +8,77 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Détecter l'environnement
+$is_local = (strpos($_SERVER['SERVER_NAME'] ?? '', 'localhost') !== false || 
+             strpos($_SERVER['SERVER_NAME'] ?? '', '127.0.0.1') !== false);
+
+if ($is_local) {
+    // ============================================
+    // LOCAL : MySQL (Wamp)
+    // ============================================
+    $DB_HOST = 'localhost';
+    $DB_NAME = 'fleura';
+    $DB_USER = 'root';
+    $DB_PASS = '';
+
+    try {
+        $pdo = new PDO(
+            "mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4",
+            $DB_USER,
+            $DB_PASS,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ]
+        );
+    } catch (PDOException $e) {
+        die("Erreur de connexion MySQL : " . $e->getMessage());
+    }
+
+    define('BASE_URL', '/fleura'); // adapte selon ton dossier local
+
+} else {
+    // ============================================
+    // PRODUCTION : Supabase (PostgreSQL) sur Render
+    // ============================================
+    $supabase_password = getenv('SUPABASE_PASSWORD') ?: 'fleuraecommerce';
+
+    $database_url = "postgresql://postgres.hojanxmjdnkvcqhtrtds:$supabase_password@aws-1-eu-west-1.pooler.supabase.com:5432/postgres";
+
+    $url = parse_url($database_url);
+    $host = $url["host"] ?? '';
+    $port = $url["port"] ?? '5432';
+    $user = $url["user"] ?? '';
+    $password = $url["pass"] ?? '';
+    $dbname = ltrim($url["path"] ?? '', '/');
+
+    try {
+        $pdo = new PDO(
+            "pgsql:host=$host;port=$port;dbname=$dbname",
+            $user,
+            $password,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ]
+        );
+    } catch (PDOException $e) {
+        die("Erreur de connexion Supabase : " . $e->getMessage());
+    }
+
+    define('BASE_URL', 'https://fleura-57g2.onrender.com');
+}
+
+// Définir les constantes communes
 define('SITE_NAME', 'FLEURA');
 define('CURRENCY', 'DA');
 define('DELIVERY_FEE', 600);
 
-// ============================================================
-// SITE_URL : détection automatique (local) ou fixe (Render)
-// ============================================================
+// Alias pour compatibilité
+define('SITE_URL', BASE_URL);
 
-// Si on est sur Render (variable d'environnement RENDER présente)
-if (getenv('RENDER')) {
-    define('SITE_URL', 'https://fleura-57g2.onrender.com');
-} else {
-    // Sinon, on est en local : construction dynamique
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-    $base_path = '/fleura';  // ← adapte selon ton dossier local (ex: '' si à la racine)
-    define('SITE_URL', $protocol . '://' . $host . $base_path);
-}
-
-// ============================================================
-// CONNEXION À LA BASE DE DONNÉES (MySQL ou PostgreSQL)
-// ============================================================
-
-// Détection automatique : si on est sur Render, on utilise Supabase (PostgreSQL)
-$is_render = getenv('RENDER') !== false || getenv('DB_HOST') !== false;
-
-if ($is_render) {
-    // --- Connexion Supabase (PostgreSQL) ---
-    // Variables d'environnement définies sur Render
-    $db_host   = getenv('DB_HOST') ?: 'aws-1-eu-west-1.pooler.supabase.com';
-    $db_port   = getenv('DB_PORT') ?: '5432';
-    $db_name   = getenv('DB_NAME') ?: 'postgres';
-    $db_user   = getenv('DB_USER') ?: 'postgres.hojanxmjdnkvcqhtrtds';
-    $db_pass   = getenv('DB_PASS') ?: 'fleuraecommerce';
-
-    try {
-        $pdo = new PDO(
-            "pgsql:host=$db_host;port=$db_port;dbname=$db_name",
-            $db_user,
-            $db_pass,
-            [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false,
-            ]
-        );
-    } catch (PDOException $e) {
-        die("Erreur de connexion à Supabase : " . $e->getMessage());
-    }
-
-} else {
-    // --- Connexion Localhost (MySQL) ---
-    $db_host = 'localhost';
-    $db_name = 'fleura';
-    $db_user = 'root';
-    $db_pass = ''; // ← ton mot de passe MySQL si tu en as un
-
-    try {
-        $pdo = new PDO(
-            "mysql:host=$db_host;dbname=$db_name;charset=utf8mb4",
-            $db_user,
-            $db_pass,
-            [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false,
-            ]
-        );
-    } catch (PDOException $e) {
-        die("Erreur de connexion à la base locale : " . $e->getMessage());
-    }
-}
+// Variables pour compatibilité avec l'ancien code
+$conn = $pdo;
+$db = $pdo;
+$connect = $pdo;
+$connexion = $pdo;

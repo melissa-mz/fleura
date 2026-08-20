@@ -1,0 +1,527 @@
+/* ============================================================
+   ADMIN - Page Produits (liste + formulaire)
+   ============================================================ */
+
+:root {
+    --admin-primary: #5C1A2E;
+    --admin-primary-hover: #7a2c42;
+    --admin-primary-light: #f3e8eb;
+    --admin-text: #1C1F1F;
+    --admin-text-light: #5C605F;
+    --admin-border: #e2e8f0;
+    --admin-bg: #f8fafc;
+    --admin-radius: 12px;
+    --admin-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* ---- Layout global ----
+   Bureau : 2 colonnes côte à côte (liste | formulaire)
+   Mobile/tablette : 1 colonne, empilées (liste au-dessus, formulaire en dessous)
+------------------------------------------------------------- */
+.products-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 30px;
+    align-items: start;
+    margin-top: 24px;
+}
+
+/* ---- Liste des produits ---- */
+.products-list {
+    background: #fff;
+    border-radius: var(--admin-radius);
+    border: 1px solid rgba(92, 26, 46, 0.08);
+    box-shadow: var(--admin-shadow);
+    overflow: hidden;
+}
+
+.products-list .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.products-list table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.products-list th {
+    background: var(--admin-bg);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--admin-text-light);
+    border-bottom: 2px solid rgba(92, 26, 46, 0.06);
+    white-space: nowrap;
+}
+
+.products-list td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(92, 26, 46, 0.05);
+    vertical-align: middle;
+}
+
+.products-list tr:last-child td {
+    border-bottom: none;
+}
+
+.products-list .product-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--admin-bg);
+    flex-shrink: 0;
+}
+
+/* ---- Actions dans la liste ---- */
+.products-list .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.products-list .actions a {
+    color: var(--admin-primary);
+    text-decoration: none;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+/* Lien "Suppr." en rouge pur */
+.actions .delete {
+    color: #C0392B !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.actions .delete:hover {
+    color: #e74c3c !important;
+    text-decoration: underline !important;
+}
+
+/* ---- Formulaire ---- */
+.form-panel {
+    background: #fff;
+    padding: 24px;
+    border-radius: var(--admin-radius);
+    border: 1px solid rgba(92, 26, 46, 0.08);
+    box-shadow: var(--admin-shadow);
+}
+
+.form-panel h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--admin-text);
+    border-bottom: 2px solid rgba(92, 26, 46, 0.08);
+    padding-bottom: 12px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    color: var(--admin-text);
+    letter-spacing: 0.02em;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--admin-border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: var(--admin-bg);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--admin-primary);
+    outline: none;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(92, 26, 46, 0.10);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    transform: scale(1.1);
+    accent-color: var(--admin-primary);
+}
+
+.form-group .current-image {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    padding: 10px 14px;
+    background: var(--admin-bg);
+    border-radius: 8px;
+    border: 1px dashed var(--admin-border);
+}
+
+.form-group .current-image img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--admin-border);
+}
+
+.text-muted {
+    color: var(--admin-text-light);
+    font-size: 0.75rem;
+}
+
+/* ============================================================
+   BOUTONS
+   ============================================================ */
+.btn {
+    display: inline-block;
+    padding: 8px 18px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.btn-primary {
+    background: var(--admin-primary);
+    color: #fff;
+    border-color: var(--admin-primary);
+}
+.btn-primary:hover {
+    background: var(--admin-primary-hover);
+    border-color: var(--admin-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(92, 26, 46, 0.30);
+}
+
+.btn-secondary {
+    background: #f1f3f5;
+    color: #4a4a4a;
+    border-color: #d1d5db;
+}
+.btn-secondary:hover {
+    background: #e5e7eb;
+    border-color: #b0b3b8;
+    transform: translateY(-2px);
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.btn-block + .btn-block {
+    margin-top: 10px;
+}
+
+/* ============================================================
+   SÉLECTEUR DE COULEURS (boules avec label en dessous)
+   ============================================================ */
+.color-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 10px;
+    margin-top: 6px;
+}
+
+.color-swatch-item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    cursor: pointer;
+    position: relative;
+    width: 52px;
+}
+
+.color-swatch-item input[type="checkbox"] {
+    display: none;
+}
+
+.color-swatch-item .swatch-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #d1d5db;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* Coche quand sélectionné */
+.color-swatch-item input[type="checkbox"]:checked + .swatch-circle {
+    border-color: #1a1a1a;
+    border-width: 3px;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+.color-swatch-item input[type="checkbox"]:checked + .swatch-circle::after {
+    content: "✓";
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.color-swatch-item input[type="checkbox"]:checked + .swatch-circle[data-dark="1"]::after {
+    color: #fff;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.color-swatch-item:hover .swatch-circle {
+    transform: scale(1.05);
+    border-color: #9ca3af;
+}
+
+/* Label toujours visible, centré sous la boule */
+.color-swatch-item .swatch-label {
+    font-size: 0.62rem;
+    color: var(--admin-text-light);
+    display: block;
+    text-align: center;
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+/* Champ "Autre" */
+.color-other-group {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.color-other-group input[type="text"] {
+    width: 200px;
+    padding: 6px 10px;
+    border: 1.5px solid var(--admin-border);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    background: var(--admin-bg);
+}
+.color-other-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--admin-primary);
+    background: #fff;
+}
+
+/* ============================================================
+   ZONE D'UPLOAD & PRÉVISUALISATIONS
+   ============================================================ */
+.upload-drop {
+    display: block;
+}
+
+.image-previews,
+.product-images-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* ============================================================
+   MESSAGES FLASH & ERREURS
+   ============================================================ */
+.flash-message {
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background: #dcfce7;
+    color: #166534;
+    border-left: 4px solid #22c55e;
+    font-size: 0.9rem;
+}
+.error-message {
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background: #fee2e2;
+    color: #991b1b;
+    border-left: 4px solid #ef4444;
+    font-size: 0.9rem;
+}
+.error-message p {
+    margin: 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================
+   > 900px  : PC/laptop — 2 colonnes côte à côte
+   ≤ 900px  : tablette & mobile — 1 colonne, empilées
+   ------------------------------------------------------------- */
+
+/* Grands écrans : légèrement plus d'air */
+@media (min-width: 1280px) {
+    .products-layout {
+        gap: 36px;
+    }
+}
+
+/* Bascule en 1 colonne dès la tablette pour éviter un formulaire trop serré */
+@media (max-width: 900px) {
+    .products-layout {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .form-panel {
+        padding: 20px;
+    }
+
+    .products-list th,
+    .products-list td {
+        padding: 10px 12px;
+    }
+}
+
+/* Mobiles */
+@media (max-width: 640px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .products-list table {
+        font-size: 0.78rem;
+    }
+    .products-list th,
+    .products-list td {
+        padding: 8px 10px;
+    }
+
+    .form-panel {
+        padding: 16px;
+        border-radius: 10px;
+    }
+    .form-panel h3 {
+        font-size: 1.25rem;
+    }
+
+    .products-list .actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .btn {
+        padding: 7px 16px;
+        font-size: 0.68rem;
+    }
+
+    /* Boules de couleur — plus compactes, label toujours lisible */
+    .color-checkbox-group {
+        gap: 12px 8px;
+    }
+    .color-swatch-item {
+        width: 46px;
+    }
+    .color-swatch-item .swatch-circle {
+        width: 34px;
+        height: 34px;
+    }
+    .color-swatch-item input[type="checkbox"]:checked + .swatch-circle::after {
+        font-size: 16px;
+    }
+    .color-swatch-item .swatch-label {
+        font-size: 0.58rem;
+    }
+
+    .color-other-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .color-other-group input[type="text"] {
+        width: 100% !important;
+    }
+
+    .image-previews .preview-item img,
+    .product-images-preview .img-item img {
+        width: 56px;
+        height: 56px;
+    }
+}
+
+/* Très petits mobiles */
+@media (max-width: 400px) {
+    .products-list table {
+        font-size: 0.7rem;
+    }
+    .products-list th,
+    .products-list td {
+        padding: 6px 8px;
+    }
+    .products-list .product-thumb {
+        width: 30px;
+        height: 30px;
+    }
+    .form-panel {
+        padding: 12px;
+    }
+    .form-panel h3 {
+        font-size: 1.1rem;
+    }
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.62rem;
+    }
+    .btn-block {
+        padding: 8px;
+    }
+
+    .color-swatch-item {
+        width: 42px;
+    }
+    .color-swatch-item .swatch-circle {
+        width: 30px;
+        height: 30px;
+    }
+    .color-swatch-item input[type="checkbox"]:checked + .swatch-circle::after {
+        font-size: 14px;
+    }
+    .color-checkbox-group {
+        gap: 10px 6px;
+    }
+}

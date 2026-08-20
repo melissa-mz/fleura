@@ -177,7 +177,7 @@ function get_new_products(int $limit = 8): array {
     global $pdo;
     $stmt = $pdo->prepare("SELECT p.*, c.name AS category_name FROM products p
                            LEFT JOIN categories c ON p.category_id = c.id
-                           WHERE p.is_new = 1 ORDER BY p.created_at DESC LIMIT ?");
+                           WHERE p.is_new = TRUE ORDER BY p.created_at DESC LIMIT ?");
     $stmt->bindValue(1, $limit, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll();

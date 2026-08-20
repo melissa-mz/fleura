@@ -379,34 +379,34 @@ function renderOrdersTable($orders) {
     .orders-table {
         table-layout: fixed !important;
         width: 100% !important;
-        font-size: 0.58rem !important;
+        font-size: 0.72rem !important;
     }
     .orders-table th,
     .orders-table td {
-        padding: 0.35rem 0.25rem !important;
+        padding: 0.5rem 0.4rem !important;
         white-space: normal !important;
         overflow-wrap: break-word !important;
         word-break: break-word !important;
-        line-height: 1.25 !important;
+        line-height: 1.3 !important;
         vertical-align: middle !important;
     }
     .orders-table th {
-        font-size: 0.48rem !important;
+        font-size: 0.58rem !important;
         letter-spacing: 0 !important;
     }
 
-    /* N° commande et Montant masqués sur mobile : déjà visibles dans le détail de la commande */
+    /* N° commande, Montant, Paiement et Statut masqués sur mobile : déjà visibles dans le détail de la commande */
     .orders-table th:nth-child(1), .orders-table td:nth-child(1) { display: none !important; }  /* N° */
     .orders-table th:nth-child(5), .orders-table td:nth-child(5) { display: none !important; }  /* Montant */
+    .orders-table th:nth-child(7), .orders-table td:nth-child(7) { display: none !important; }  /* Paiement */
+    .orders-table th:nth-child(8), .orders-table td:nth-child(8) { display: none !important; }  /* Statut */
 
-    /* Répartition des largeurs sur les 7 colonnes restantes (total = 100%) */
-    .orders-table th:nth-child(2), .orders-table td:nth-child(2) { width: 20%; }  /* Cliente */
-    .orders-table th:nth-child(3), .orders-table td:nth-child(3) { width: 18%; }  /* Téléphone */
-    .orders-table th:nth-child(4), .orders-table td:nth-child(4) { width: 14%; }  /* Date */
-    .orders-table th:nth-child(6), .orders-table td:nth-child(6) { width: 14%; }  /* Livraison */
-    .orders-table th:nth-child(7), .orders-table td:nth-child(7) { width: 12%; }  /* Paiement */
-    .orders-table th:nth-child(8), .orders-table td:nth-child(8) { width: 16%; }  /* Statut */
-    .orders-table th:nth-child(9), .orders-table td:nth-child(9) { width: 6%;  }  /* Action */
+    /* Répartition des largeurs sur les 5 colonnes restantes (total = 100%) */
+    .orders-table th:nth-child(2), .orders-table td:nth-child(2) { width: 28%; }  /* Cliente */
+    .orders-table th:nth-child(3), .orders-table td:nth-child(3) { width: 24%; }  /* Téléphone */
+    .orders-table th:nth-child(4), .orders-table td:nth-child(4) { width: 18%; }  /* Date */
+    .orders-table th:nth-child(6), .orders-table td:nth-child(6) { width: 18%; }  /* Livraison */
+    .orders-table th:nth-child(9), .orders-table td:nth-child(9) { width: 12%; }  /* Action */
 
     .orders-table .status-badge {
         font-size: 0.44rem !important;
@@ -431,18 +431,14 @@ function renderOrdersTable($orders) {
 
 @media (max-width: 380px) {
     .orders-table {
-        font-size: 0.52rem !important;
+        font-size: 0.66rem !important;
     }
     .orders-table th {
-        font-size: 0.42rem !important;
+        font-size: 0.52rem !important;
     }
     .orders-table th,
     .orders-table td {
-        padding: 0.3rem 0.18rem !important;
-    }
-    .orders-table .status-badge {
-        font-size: 0.4rem !important;
-        padding: 2px 4px !important;
+        padding: 0.45rem 0.3rem !important;
     }
 }
 </style>

@@ -13,16 +13,19 @@ define('CURRENCY', 'DA');
 define('DELIVERY_FEE', 600);
 
 // ============================================================
-// SITE_URL : détection automatique (local ou en ligne)
+// SITE_URL : détection automatique (local) ou fixe (Render)
 // ============================================================
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
-// Si tu es en WAMP dans un sous‑dossier, ajuste ici :
-// Exemple : '/fleura'  ou  '' si le site est à la racine
-$base_path = '/fleura';
-
-define('SITE_URL', $protocol . '://' . $host . $base_path);
+// Si on est sur Render (variable d'environnement RENDER présente)
+if (getenv('RENDER')) {
+    define('SITE_URL', 'https://fleura-57g2.onrender.com');
+} else {
+    // Sinon, on est en local : construction dynamique
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $base_path = '/fleura';  // ← adapte selon ton dossier local (ex: '' si à la racine)
+    define('SITE_URL', $protocol . '://' . $host . $base_path);
+}
 
 // ============================================================
 // CONNEXION À LA BASE DE DONNÉES (MySQL ou PostgreSQL)

@@ -18,40 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         onScroll();
     }
 
-    // ---------- Mobile menu ----------
-    const burger = document.getElementById('burger');
-    const navMenu = document.getElementById('navMenu');
-    if (burger && navMenu) {
-        burger.addEventListener('click', () => {
-            burger.classList.toggle('active');
-            navMenu.classList.toggle('open');
-        });
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                burger.classList.remove('active');
-                navMenu.classList.remove('open');
-            });
-        });
-    }
-
-    // ---------- Dropdown "Articles" (desktop hover / mobile clic) ----------
-    const dropdownTrigger = document.querySelector('.navbar__dropdown-trigger');
-    const dropdownWrap = document.getElementById('articlesDropdown');
-    if (dropdownTrigger && dropdownWrap) {
-        dropdownTrigger.addEventListener('click', (e) => {
-            if (window.matchMedia('(max-width: 768px)').matches) {
-                e.preventDefault();
-                dropdownWrap.classList.toggle('open');
-            }
-        });
-        // Fermer si on clique ailleurs (desktop, sécurité)
-        document.addEventListener('click', (e) => {
-            if (!dropdownWrap.contains(e.target)) {
-                dropdownWrap.classList.remove('open');
-            }
-        });
-    }
-
     // ---------- Hero parallax ----------
     const heroImage = document.querySelector('.hero__image');
     if (heroImage) {
@@ -176,23 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---------- Curtain card touch support ----------
-    if (window.matchMedia('(hover: none)').matches) {
-        document.querySelectorAll('.curtain-card').forEach(card => {
-            card.addEventListener('click', () => {
-                card.classList.toggle('curtain-open');
-            });
-        });
-    }
-
-    // ---------- Auto-dismiss alerts ----------
-    document.querySelectorAll('.alert').forEach(alert => {
-        setTimeout(() => {
-            alert.style.transition = 'opacity 0.5s, transform 0.5s';
-            alert.style.opacity = '0';
-            alert.style.transform = 'translateY(-10px)';
-            setTimeout(() => alert.remove(), 500);
-        }, 4000);
-    });
+   
 
 });

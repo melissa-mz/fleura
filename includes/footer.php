@@ -61,6 +61,36 @@
 
 </div> <!-- fin .page-wrapper -->
 
+<script>
+// ============================================================
+// MENU MOBILE BURGER
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    const burger = document.getElementById('burger');
+    const navMenu = document.querySelector('.navbar__menu');
+
+    if (burger && navMenu) {
+        burger.addEventListener('click', function() {
+            burger.classList.toggle('active');
+            navMenu.classList.toggle('is-open');
+        });
+    }
+
+    // ============================================================
+    // DROPDOWN ARTICLES (ouverture au clic sur mobile)
+    // ============================================================
+    const dropdownTrigger = document.querySelector('.navbar__dropdown-trigger');
+    const dropdown = document.querySelector('.navbar__dropdown');
+    
+    if (dropdownTrigger && dropdown) {
+        dropdownTrigger.addEventListener('click', function(e) {
+            e.preventDefault(); // empêche le comportement par défaut du bouton
+            dropdown.classList.toggle('open');
+        });
+    }
+});
+</script>
+
 <script src="<?= e(SITE_URL) ?>/assets/js/main.js"></script>
 </body>
 </html>

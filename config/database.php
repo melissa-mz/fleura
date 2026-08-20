@@ -16,8 +16,8 @@ $pass = getenv('DB_PASS') ?: '';
 
 define('SITE_NAME', 'FLEURA');
 
-// SITE_URL : priorité à la variable d’environnement Render
-define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/fleura');
+// ⚠️ MODIFICATION POUR LE TEST NG-ROK
+define('SITE_URL', 'https://atypical-easiness-sequester.ngrok-free.dev/fleura');
 
 define('CURRENCY', getenv('CURRENCY') ?: 'DA');
 define('DELIVERY_FEE', (float)(getenv('DELIVERY_FEE') ?: 600));

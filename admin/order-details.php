@@ -138,11 +138,14 @@ $image_base = SITE_URL . '/assets/images/products/';
 .order-detail__btn:hover {
     background: #7a2c42;
 }
+
+/* --- Tableau articles (desktop) --- */
 .order-detail__table-wrap {
     background: #fff;
     border-radius: 10px;
     border: 1px solid rgba(92, 26, 46, 0.06);
-    overflow: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     box-shadow: 0 2px 10px rgba(0,0,0,0.02);
 }
 .order-detail__table {
@@ -159,6 +162,7 @@ $image_base = SITE_URL . '/assets/images/products/';
     letter-spacing: 0.08em;
     color: var(--color-text-muted, #9a9186);
     border-bottom: 1px solid rgba(92, 26, 46, 0.06);
+    white-space: nowrap;
 }
 .order-detail__table td {
     padding: 0.4rem 0.8rem;
@@ -192,6 +196,10 @@ $image_base = SITE_URL . '/assets/images/products/';
     color: #5C1A2E;
     margin: 0;
 }
+
+/* ============================================================
+   RESPONSIVE MOBILE
+   ============================================================ */
 @media (max-width: 768px) {
     .order-detail__grid {
         grid-template-columns: 1fr;
@@ -200,22 +208,87 @@ $image_base = SITE_URL . '/assets/images/products/';
     .order-detail__card {
         padding: 1rem;
     }
-    .order-detail__table {
-        font-size: 0.65rem;
-    }
-    .order-detail__table th,
-    .order-detail__table td {
-        padding: 0.3rem 0.5rem;
-    }
-    .order-detail__thumb {
-        width: 22px;
-        height: 22px;
-    }
     .order-detail__info-line {
         font-size: 0.75rem;
     }
     .order-detail__info-line .label {
         min-width: 70px;
+    }
+
+    /* --- Tableau articles transformé en cartes --- */
+    .order-detail__table-wrap {
+        overflow: visible !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    .order-detail__table thead {
+        display: none !important;
+    }
+    .order-detail__table,
+    .order-detail__table tbody,
+    .order-detail__table tr,
+    .order-detail__table td {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .order-detail__table tr {
+        background: #fff !important;
+        border: 1px solid var(--admin-soft-border, #E8E0D8) !important;
+        border-radius: 12px !important;
+        padding: 12px 14px !important;
+        margin-bottom: 12px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+    }
+    .order-detail__table td {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 6px 0 !important;
+        border: none !important;
+        border-bottom: 1px solid #F1ECE8 !important;
+        gap: 10px !important;
+        text-align: right;
+    }
+    .order-detail__table td:last-child {
+        border-bottom: none !important;
+    }
+    .order-detail__table td::before {
+        content: attr(data-label);
+        font-size: 0.62rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #9A9186;
+        flex-shrink: 0;
+        text-align: left;
+    }
+    .order-detail__table td:first-child {
+        font-weight: 600;
+        color: #5C1A2E;
+    }
+    .order-detail__table td:nth-child(7) {
+        font-weight: 700;
+    }
+    .order-detail__table td[data-label="Image"] {
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-detail__table tr {
+        padding: 10px 12px !important;
+    }
+    .order-detail__table td {
+        font-size: 0.72rem !important;
+    }
+    .order-detail__table td::before {
+        font-size: 0.58rem;
+    }
+    .order-detail__thumb {
+        width: 24px;
+        height: 24px;
     }
 }
 </style>
@@ -341,13 +414,13 @@ $image_base = SITE_URL . '/assets/images/products/';
             <tbody>
                 <?php foreach ($items as $item): ?>
                     <tr>
-                        <td><?= e($item['name']) ?></td>
-                        <td><img src="<?= $image_base . e($item['image']) ?>" alt="" class="order-detail__thumb"></td>
-                        <td><?= e($item['size'] ?: '—') ?></td>
-                        <td><?= e($item['color'] ?: '—') ?></td>
-                        <td><?= (int)$item['quantity'] ?></td>
-                        <td><?= format_price($item['price']) ?></td>
-                        <td><?= format_price($item['price'] * $item['quantity']) ?></td>
+                        <td data-label="Produit"><?= e($item['name']) ?></td>
+                        <td data-label="Image"><img src="<?= $image_base . e($item['image']) ?>" alt="" class="order-detail__thumb"></td>
+                        <td data-label="Taille"><?= e($item['size'] ?: '—') ?></td>
+                        <td data-label="Couleur"><?= e($item['color'] ?: '—') ?></td>
+                        <td data-label="Qté"><?= (int)$item['quantity'] ?></td>
+                        <td data-label="Prix unit."><?= format_price($item['price']) ?></td>
+                        <td data-label="Total"><?= format_price($item['price'] * $item['quantity']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

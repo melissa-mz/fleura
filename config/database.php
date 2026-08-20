@@ -15,11 +15,14 @@ $pass = getenv('DB_PASS') ?: '';
 $port = getenv('DB_PORT') ?: '3306';
 
 // --- Constantes ---
-define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/fleura');
+// ⚠️ Pour Render, on met l'URL directement (ou via getenv pour plus de flexibilité)
+define('SITE_URL', getenv('SITE_URL') ?: 'https://fleura.onrender.com');
+// En local, tu peux remplacer par : define('SITE_URL', 'http://localhost/fleura');
+
 define('CURRENCY', getenv('CURRENCY') ?: 'DA');
 define('DELIVERY_FEE', (float)(getenv('DELIVERY_FEE') ?: 600));
 
-// --- Initialisation du driver (pour rassurer Intelephense) ---
+// --- Initialisation du driver ---
 $driver = 'unknown';
 
 try {
@@ -31,7 +34,7 @@ try {
         if ($hostaddr === $host) {
             $hostaddr = $host;
         }
-        // DSN : on utilise hostaddr pour forcer IPv4, et sslmode=require
+        // DSN : hostaddr + sslmode=require
         $dsn = "pgsql:hostaddr=$hostaddr;port=$port;dbname=$dbname;sslmode=require";
         $driver = 'pgsql';
     } else {

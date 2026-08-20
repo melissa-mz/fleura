@@ -571,7 +571,7 @@
 
 .admin-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 220px));
     gap: 1.2rem;
     margin-bottom: 2.5rem;
 }
@@ -1043,7 +1043,7 @@
     }
 
     .admin-stats {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
     }
     .admin-stat {
@@ -1097,10 +1097,6 @@
     .orders-table .link-detail {
         font-size: 0.65rem !important;
         padding: 5px 11px !important;
-    }
-
-    .admin-stats {
-        grid-template-columns: repeat(2, 1fr);
     }
 }
 

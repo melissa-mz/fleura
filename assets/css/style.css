@@ -2796,7 +2796,52 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
     backdrop-filter: blur(8px);
     transition: background .25s ease, color .25s ease;
 }
+/* =====================================================
+   BOUTON ŒIL MODERNE ET AÉRIEN
+   ===================================================== */
 
+.product-card__action-btn--icon {
+    flex: 0 0 40px;          /* Largeur fixe pour rester petit et carré */
+    height: 40px;            /* Même hauteur que le bouton "Ajouter" */
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+    color: #211c17;
+    border: none;
+    border-radius: 2px;      /* Ou 0 si vous voulez carré parfait */
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+/* Au survol : il s'assombrit élégamment */
+.product-card__action-btn--icon:hover {
+    background: #211c17;
+    color: #ffffff;
+    transform: scale(1.05);  /* Petit effet "pop" très subtil */
+}
+
+/* L'icône SVG elle-même */
+.product-card__action-btn--icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    pointer-events: none;    /* Évite les bugs de clic sur le SVG */
+}
+
+/* =====================================================
+   RESPONSIVE : SUR PETIT MOBILE, IL S'ADOUCIT
+   ===================================================== */
+@media (max-width: 480px) {
+    .product-card__action-btn--icon {
+        flex: 0 0 36px;      /* Un tout petit peu plus petit */
+        height: 36px;
+    }
+    .product-card__action-btn--icon svg {
+        width: 16px;
+        height: 16px;
+    }
+}
 .product-card__action-btn:hover {
     background: #211c17;
     color: #ffffff;

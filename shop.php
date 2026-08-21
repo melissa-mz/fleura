@@ -97,8 +97,12 @@ $image_base = SITE_URL . '/assets/images/products/';
                             <!-- ACTIONS AU SURVOL -->
                             <div class="product-card__actions">
                                 <a href="<?= e(SITE_URL) ?>/product.php?id=<?= (int) $product['id'] ?>"
-                                   class="product-card__action-btn">
-                                    Voir l'article
+                                   class="product-card__action-btn product-card__action-btn--icon"
+                                   aria-label="Voir l'article">
+                                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
                                 </a>
                                 <form method="post" action="<?= e(SITE_URL) ?>/cart.php"
                                       class="product-card__add-form">

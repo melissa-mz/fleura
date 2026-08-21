@@ -4129,3 +4129,47 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
         border-radius: 8px !important;
     }
 }
+/* =====================================================
+   PRODUCT CARD — Bouton "Voir" en icône (œil)
+   ===================================================== */
+
+.product-card__actions {
+    align-items: stretch;
+}
+
+.product-card__action-btn--icon {
+    flex: 0 0 42px;
+    width: 42px;
+    padding: 0;
+}
+
+.product-card__add-form {
+    flex: 1;
+}
+
+/* =====================================================
+   PRODUCT CARD — Actions toujours visibles sur mobile/tactile
+   (pas de :hover sur téléphone, donc affichage forcé)
+   ===================================================== */
+
+@media (hover: none), (max-width: 768px) {
+    .product-card__actions {
+        opacity: 1 !important;
+        transform: none !important;
+        position: static !important;
+        padding: 10px 0 0 !important;
+        background: transparent !important;
+    }
+    .product-card__action-btn--icon {
+        flex: 0 0 40px;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--color-border, #E8DBCF);
+        background: #fff;
+    }
+    .product-card__action-btn--dark {
+        flex: 1;
+        height: 40px;
+        font-size: 9px;
+    }
+}

@@ -96,15 +96,25 @@ $image_base = SITE_URL . '/assets/images/products/';
                         <span class="product-card__badge product-card__badge--accent">NEW</span>
                     <?php endif; ?>
 
-                    <div class="product-card__actions">
-                        <a href="<?= e(SITE_URL) ?>/product.php?id=<?= (int)$product['id'] ?>" class="product-card__action-btn">Voir</a>
-                        <form method="post" action="<?= e(SITE_URL) ?>/cart.php" style="flex:1;">
-                            <input type="hidden" name="action" value="add">
-                            <input type="hidden" name="product_id" value="<?= (int)$product['id'] ?>">
-                            <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="product-card__action-btn" style="width:100%;border:none;">Ajouter</button>
-                        </form>
-                    </div>
+                   <div class="product-card__actions">
+    <!-- Lien "Voir" avec l'icône œil moderne -->
+    <a href="<?= e(SITE_URL) ?>/product.php?id=<?= (int)$product['id'] ?>"
+       class="product-card__action-btn product-card__action-btn--icon"
+       aria-label="Voir l'article">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+        </svg>
+    </a>
+
+    <!-- Formulaire Ajouter au panier -->
+    <form method="post" action="<?= e(SITE_URL) ?>/cart.php" style="flex:1;">
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="product_id" value="<?= (int)$product['id'] ?>">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="product-card__action-btn" style="width:100%;border:none;">Ajouter</button>
+    </form>
+</div>
                 </div>
                 <div class="product-card__info">
                     <p class="product-card__name"><?= e($product['name']) ?></p>

@@ -262,76 +262,12 @@ $current_file = basename($_SERVER['PHP_SELF']);
 
             <div class="navbar__actions">
 
-
-                <!-- ================= RECHERCHE ================= -->
-
-                <a
-                    href="<?= e(SITE_URL) ?>/shop.php"
-                    class="navbar__icon"
-                    aria-label="Recherche"
-                >
-
-                    <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                    >
-
-                        <circle
-                            cx="11"
-                            cy="11"
-                            r="7"
-                        />
-
-                        <path d="m21 21-4.3-4.3"/>
-
-                    </svg>
-
-                </a>
-
-
-                <!-- ================= PANIER ================= -->
-
-                <a
-                    href="<?= e(SITE_URL) ?>/cart.php"
-                    class="navbar__icon navbar__cart"
-                    aria-label="Panier"
-                >
-
-                    <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                    >
-
-                        <path
-                            d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"
-                        />
-
-                        <path d="M3 6h18"/>
-
-                        <path d="M16 10a4 4 0 0 1-8 0"/>
-
-                    </svg>
-
-
-                    <?php if ($cart_count > 0): ?>
-
-                        <span class="navbar__cart-count">
-                            <?= $cart_count ?>
-                        </span>
-
-                    <?php endif; ?>
-
-                </a>
-
-
+<button type="button" class="navbar__icon" id="searchToggle" aria-label="Recherche" aria-expanded="false" aria-controls="searchPanel">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m21 21-4.3-4.3"/>
+    </svg>
+</button>
                 <!-- ================= ADMINISTRATION ================= -->
 
                 <a
@@ -387,7 +323,49 @@ $current_file = basename($_SERVER['PHP_SELF']);
             </div>
 
         </div>
+        <!-- =================================================
+             PANNEAU RECHERCHE
+             ================================================= -->
 
+        <div class="search-panel" id="searchPanel">
+            <div class="search-panel__inner">
+
+                <form action="<?= e(SITE_URL) ?>/shop.php" method="get" class="search-panel__form" id="searchForm">
+
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="m21 21-4.3-4.3"/>
+                    </svg>
+
+                    <input
+                        type="text"
+                        name="search"
+                        id="searchInput"
+                        placeholder="Rechercher une robe, un sac, un foulard…"
+                        autocomplete="off"
+                        value="<?= e($_GET['search'] ?? '') ?>"
+                    >
+
+                    <button type="submit" class="search-panel__submit" aria-label="Lancer la recherche">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M13 6l6 6-6 6"/>
+                        </svg>
+                    </button>
+
+                </form>
+
+                <button type="button" class="search-panel__close" id="searchClose" aria-label="Fermer la recherche">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M18 6 6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+
+            </div>
+        </div>
+
+    </header>
+
+    <div class="search-overlay" id="searchOverlay"></div>
     </header>
 
 

@@ -4238,3 +4238,203 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
         min-height: 0;
     }
 }
+/* =====================================================
+   RECHERCHE — PANNEAU DYNAMIQUE
+   ===================================================== */
+
+.navbar__icon[aria-expanded="true"] {
+    color: var(--color-accent);
+}
+
+.search-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 20px 45px rgba(30, 15, 20, 0.10);
+    z-index: 1250;
+    padding: 32px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    transition: opacity .25s ease, transform .3s cubic-bezier(.22,1,.36,1), visibility 0s linear .3s;
+}
+
+.search-panel.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity .25s ease, transform .3s cubic-bezier(.22,1,.36,1), visibility 0s;
+}
+
+.search-panel__inner {
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 24px;
+}
+
+.search-panel__form {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 10px;
+}
+
+.search-panel__form svg {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+}
+
+.search-panel__form input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: var(--color-text);
+}
+
+.search-panel__form input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.8;
+}
+
+.search-panel__submit {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background .25s ease, transform .25s ease;
+}
+
+.search-panel__submit:hover {
+    background: var(--color-accent-dark);
+    transform: scale(1.06);
+}
+
+.search-panel__close {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    transition: color .2s ease, transform .2s ease;
+}
+
+.search-panel__close:hover {
+    color: var(--color-accent);
+    transform: rotate(90deg);
+}
+
+.search-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 12, 15, 0.22);
+    z-index: 1200;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s ease, visibility 0s linear .25s;
+}
+
+.search-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .25s ease;
+}
+
+/* =====================================================
+   RECHERCHE — RESPONSIVE (VERSION CORRIGÉE)
+   ===================================================== */
+
+@media (max-width: 768px) {
+    .search-panel {
+        padding: 20px 0;
+    }
+    .search-panel__inner {
+        padding: 0 18px;
+        gap: 10px;
+    }
+    .search-panel__form {
+        gap: 10px;
+        padding-bottom: 9px;
+    }
+    .search-panel__form input {
+        /* 16px minimum : empêche le zoom automatique sur iOS Safari */
+        font-size: 16px;
+    }
+    .search-panel__submit {
+        width: 36px;
+        height: 36px;
+    }
+    .search-panel__close {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-panel {
+        padding: 16px 0;
+    }
+    .search-panel__inner {
+        padding: 0 14px;
+        gap: 8px;
+    }
+    .search-panel__form {
+        gap: 8px;
+        padding-bottom: 8px;
+    }
+    .search-panel__form input {
+        font-size: 16px;
+    }
+    .search-panel__form svg {
+        width: 17px;
+        height: 17px;
+        flex-shrink: 0;
+    }
+    .search-panel__submit {
+        width: 34px;
+        height: 34px;
+    }
+    .search-panel__submit svg {
+        width: 13px;
+        height: 13px;
+    }
+    .search-panel__close {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media (max-width: 360px) {
+    .search-panel__inner {
+        padding: 0 10px;
+        gap: 6px;
+    }
+    .search-panel__form input::placeholder {
+        font-size: 0.85em;
+    }
+}
+
+.search-panel__inner,
+.search-panel__form {
+    min-width: 0;
+}

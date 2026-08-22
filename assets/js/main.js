@@ -61,6 +61,162 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =================================================
+    // RECHERCHE — PANNEAU DYNAMIQUE
+    // =================================================
+
+    const searchToggle = document.getElementById('searchToggle');
+    const searchPanel = document.getElementById('searchPanel');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchClose = document.getElementById('searchClose');
+    const searchInput = document.getElementById('searchInput');
+
+    function openSearchPanel() {
+
+        if (!searchPanel) {
+            return;
+        }
+
+        // Fermer le menu burger s'il est ouvert
+        closeMobileMenu();
+
+        searchPanel.classList.add('open');
+
+        if (searchOverlay) {
+            searchOverlay.classList.add('open');
+        }
+
+        if (searchToggle) {
+            searchToggle.setAttribute('aria-expanded', 'true');
+        }
+
+        document.body.classList.add('search-open');
+
+        setTimeout(() => {
+
+            if (searchInput) {
+                searchInput.focus();
+            }
+
+        }, 200);
+
+    }
+
+    function closeSearchPanel() {
+
+        if (!searchPanel) {
+            return;
+        }
+
+        searchPanel.classList.remove('open');
+
+        if (searchOverlay) {
+            searchOverlay.classList.remove('open');
+        }
+
+        if (searchToggle) {
+            searchToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        document.body.classList.remove('search-open');
+
+    }
+
+    if (searchToggle && searchPanel) {
+
+        searchToggle.addEventListener(
+            'click',
+            (event) => {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                const isOpen =
+                    searchPanel.classList.contains('open');
+
+                if (isOpen) {
+
+                    closeSearchPanel();
+
+                } else {
+
+                    openSearchPanel();
+
+                }
+
+            }
+        );
+
+    }
+
+    if (searchClose) {
+
+        searchClose.addEventListener(
+            'click',
+            closeSearchPanel
+        );
+
+    }
+
+    if (searchOverlay) {
+
+        searchOverlay.addEventListener(
+            'click',
+            closeSearchPanel
+        );
+
+    }
+
+    // Fermer si on clique en dehors du panneau (hors overlay/toggle déjà gérés)
+    document.addEventListener(
+        'click',
+        (event) => {
+
+            if (!searchPanel || !searchToggle) {
+                return;
+            }
+
+            const isOpen =
+                searchPanel.classList.contains('open');
+
+            if (!isOpen) {
+                return;
+            }
+
+            const clickedInsidePanel =
+                searchPanel.contains(event.target);
+
+            const clickedToggle =
+                searchToggle.contains(event.target);
+
+            if (!clickedInsidePanel && !clickedToggle) {
+
+                closeSearchPanel();
+
+            }
+
+        }
+    );
+
+    // ESC — fermer la recherche
+    document.addEventListener(
+        'keydown',
+        (event) => {
+
+            if (
+                (event.key === 'Escape' || event.key === 'Esc') &&
+                searchPanel &&
+                searchPanel.classList.contains('open')
+            ) {
+
+                closeSearchPanel();
+
+            }
+
+        }
+    );
+
+
+    // =================================================
     // FONCTION : FERMER LE MENU MOBILE
     // =================================================
 
@@ -118,6 +274,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!burger || !navMenu) {
             return;
         }
+
+        // Fermer la recherche si elle est ouverte
+        closeSearchPanel();
 
         burger.classList.add('active');
 

@@ -242,5 +242,86 @@ $image_base = SITE_URL . '/assets/images/products/';
         </div>
     </div>
 </section>
+<!-- =====================================================
+     FLEURA — SECTION NOS BOUTIQUES (Maps)
+     ===================================================== -->
+<section class="locations-section">
+    <div class="container">
+        <p class="eyebrow reveal" style="text-align:center;">Où nous trouver</p>
+        <h2 class="section-title reveal">Nos Boutiques</h2>
+        <p class="section-subtitle reveal">Deux adresses à Koléa pour découvrir l'univers Fleura.</p>
+    </div>
 
+    <div class="location-cards">
+
+        <!-- Boutique 1 -->
+        <div class="location-card reveal">
+            <div class="location-card__inner">
+                <div class="location-card__head">
+                    <div class="location-card__icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z"/>
+                            <circle cx="12" cy="9.5" r="2.5"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="location-card__name">Boutique Fleura</p>
+                        <p class="location-card__label">Koléa</p>
+                    </div>
+                </div>
+
+                <div class="location-card__map">
+                    <iframe
+                        src="https://www.google.com/maps?q=Boutique+Fleura,36.6397474,2.76943&hl=fr&z=18&output=embed"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Localisation Boutique Fleura">
+                    </iframe>
+                </div>
+
+                <p class="location-card__address">Koléa, Algérie</p>
+
+                <a href="https://www.google.com/maps/place/Boutique+Fleura/@36.6397474,2.76943,21z/data=!4m2!3m1!1s0x128f9f66509c6fc1:0xc09c944b07ed2977?hl=fr"
+                   target="_blank" rel="noopener" class="location-card__btn">
+                    Itinéraire
+                </a>
+            </div>
+        </div>
+
+        <!-- Boutique 2 -->
+        <div class="location-card reveal reveal-delay-1">
+            <div class="location-card__inner">
+                <div class="location-card__head">
+                    <div class="location-card__icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z"/>
+                            <circle cx="12" cy="9.5" r="2.5"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="location-card__name">Boutique Fleura</p>
+                        <p class="location-card__label">2ᵉ adresse — Koléa</p>
+                    </div>
+                </div>
+
+                <div class="location-card__map">
+                    <iframe
+                        src="https://www.google.com/maps?q=36.639416,2.768748&hl=fr&z=18&output=embed"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Localisation Boutique Fleura 2">
+                    </iframe>
+                </div>
+
+                <p class="location-card__address">Koléa, Algérie</p>
+
+                <a href="https://www.google.com/maps/place/36%C2%B038'21.9%22N+2%C2%B046'07.5%22E/@36.639416,2.7661731,17z/data=!3m1!4b1!4m4!3m3!8m2!3d36.639416!4d2.768748"
+                   target="_blank" rel="noopener" class="location-card__btn">
+                    Itinéraire
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

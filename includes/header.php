@@ -24,6 +24,8 @@ $current_file = basename($_SERVER['PHP_SELF']);
         <?= e($page_title ?? 'FLEURA — L\'élégance, simplement.') ?>
     </title>
 
+    <link rel="icon" type="image/png" href="<?= e(SITE_URL) ?>/assets/images/logo.png">
+
     <meta
         name="description"
         content="Boutique Fleura — Magasin de mode féminine à Koléa, Algérie. Découvrez nos collections de robes, vêtements, sacs, foulards et accessoires."
@@ -262,12 +264,63 @@ $current_file = basename($_SERVER['PHP_SELF']);
 
             <div class="navbar__actions">
 
-<button type="button" class="navbar__icon" id="searchToggle" aria-label="Recherche" aria-expanded="false" aria-controls="searchPanel">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="11" cy="11" r="7" />
-        <path d="m21 21-4.3-4.3"/>
-    </svg>
-</button>
+
+                <!-- ================= RECHERCHE ================= -->
+
+                <button
+                    type="button"
+                    class="navbar__icon"
+                    id="searchToggle"
+                    aria-label="Recherche"
+                    aria-expanded="false"
+                    aria-controls="searchPanel"
+                >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="m21 21-4.3-4.3"/>
+                    </svg>
+                </button>
+
+
+                <!-- ================= PANIER ================= -->
+
+                <a
+                    href="<?= e(SITE_URL) ?>/cart.php"
+                    class="navbar__icon navbar__cart"
+                    aria-label="Panier"
+                >
+
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+
+                        <path
+                            d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"
+                        />
+
+                        <path d="M3 6h18"/>
+
+                        <path d="M16 10a4 4 0 0 1-8 0"/>
+
+                    </svg>
+
+
+                    <?php if ($cart_count > 0): ?>
+
+                        <span class="navbar__cart-count">
+                            <?= $cart_count ?>
+                        </span>
+
+                    <?php endif; ?>
+
+                </a>
+
+
                 <!-- ================= ADMINISTRATION ================= -->
 
                 <a
@@ -323,6 +376,8 @@ $current_file = basename($_SERVER['PHP_SELF']);
             </div>
 
         </div>
+
+
         <!-- =================================================
              PANNEAU RECHERCHE
              ================================================= -->
@@ -366,7 +421,6 @@ $current_file = basename($_SERVER['PHP_SELF']);
     </header>
 
     <div class="search-overlay" id="searchOverlay"></div>
-    </header>
 
 
     <!-- =================================================
@@ -374,4 +428,3 @@ $current_file = basename($_SERVER['PHP_SELF']);
          ================================================= -->
 
     <main>
-

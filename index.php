@@ -206,7 +206,7 @@ $image_base = SITE_URL . '/assets/images/products/';
 
                 <p class="social-card__text">Découvrez nos nouveautés, nos collections et l'univers Fleura au quotidien.</p>
 
-                <a href="https://www.instagram.com/Boutiquefleura" target="_blank" rel="noopener" class="social-card__btn">
+                <a href="https://www.instagram.com/fleurakolea2/?hl=fr" target="_blank" rel="noopener" class="social-card__btn">
                     Ouvrir Instagram
                 </a>
             </div>

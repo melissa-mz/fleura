@@ -15,6 +15,9 @@ $admin_page = basename($_SERVER['PHP_SELF']);
 
     <title><?= e($page_title ?? 'Administration') ?></title>
 
+    <link rel="icon" type="image/png" href="<?= e(SITE_URL) ?>/assets/images/logo.png?v=2">
+    <link rel="shortcut icon" type="image/png" href="<?= e(SITE_URL) ?>/assets/images/logo.png?v=2">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 

@@ -4291,17 +4291,16 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
     color: var(--color-text-muted);
     flex-shrink: 0;
 }
-
 .search-panel__form input {
     flex: 1;
     min-width: 0;
     border: none;
     outline: none;
     background: transparent;
-    font-family: var(--font-serif);
-    font-style: italic;
+    font-family: var(--font-sans);
+    font-style: normal;
     font-weight: 400;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: var(--color-text);
 }
 
